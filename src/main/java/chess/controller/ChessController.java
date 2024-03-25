@@ -23,7 +23,7 @@ public class ChessController {
         playWithCommand(chessBoard);
     }
 
-    private void playWithCommand(final ChessBoard chessBoard) { // TODO: 인덴트 줄이기
+    private void playWithCommand(final ChessBoard chessBoard) {
         while (true) {
             CommandDto commandDto = CommandDto.from(inputView.readCommand());
             Command command = commandDto.command();

@@ -2,6 +2,7 @@ package chess.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import chess.controller.CommandDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -15,7 +16,7 @@ class CommandTest {
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "  "})
     void BlankInputThrowException(final String value) {
-        Assertions.assertThatThrownBy(() -> Command.fromStartCommand(value))
+        Assertions.assertThatThrownBy(() -> CommandDto.from(value))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -23,15 +24,15 @@ class CommandTest {
     @ParameterizedTest
     @NullSource
     void nullInputThrowException(final String value) {
-        Assertions.assertThatThrownBy(() -> Command.fromStartCommand(value))
+        Assertions.assertThatThrownBy(() -> CommandDto.from(value))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("지정된 명령어가 아니면 예외를 발생시킨다.")
     @ParameterizedTest
-    @ValueSource(strings = {"st", "END", "go"})
+    @ValueSource(strings = {"st", "START", "go"})
     void test(final String value) {
-        Assertions.assertThatThrownBy(() -> Command.fromStartCommand(value))
+        Assertions.assertThatThrownBy(() -> CommandDto.from(value))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -40,9 +41,12 @@ class CommandTest {
     @ParameterizedTest
     void create(final String value, final Command expected) {
         // given
-        final Command command = Command.fromStartCommand(value);
+        CommandDto commandDto = CommandDto.from(value);
 
-        // when & then
+        // when
+        Command command = commandDto.command();
+
+        // then
         assertThat(command).isEqualTo(expected);
     }
 }

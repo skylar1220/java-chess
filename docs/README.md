@@ -38,6 +38,7 @@
 - [x] file, rank 테스트 새로
 - [x] command dto 방식 적용
   - [ ] start 안하고 바로 move 오류 수정
+  - [ ] 인덴트 줄이기
 - [ ] 리뷰 반영
 - [ ] view에 넘겨줄 때 dto 방식 고려
 - [ ] direction vector 방식 적용

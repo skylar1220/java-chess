@@ -11,6 +11,8 @@ public record CommandDto(Command command, String source, String target) {
     public static final int MOVE_COMMAND_MESSAGE_INDEX = 0;
 
     public static CommandDto from(String input) {
+        validateBlank(input);
+
         if (input.equals(Command.START.getMessage())) {
             return new CommandDto(Command.START, "", "");
         }
@@ -23,6 +25,12 @@ public record CommandDto(Command command, String source, String target) {
         String source = splits.get(1);
         String target = splits.get(2);
         return new CommandDto(Command.MOVE, source, target);
+    }
+
+    private static void validateBlank(final String input) {
+        if (input == null || input.isBlank()) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력입니다.");
+        }
     }
 
     private static void validateMoveCommand(final List<String> splittedInput) {
