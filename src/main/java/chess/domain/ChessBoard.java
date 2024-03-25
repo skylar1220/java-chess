@@ -4,7 +4,6 @@ import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
 import chess.domain.piece.type.Empty;
 import chess.domain.piece.type.Pawn;
-import java.util.List;
 import java.util.Map;
 
 public class ChessBoard {
@@ -15,11 +14,8 @@ public class ChessBoard {
         this.pieces = pieces;
     }
 
-    public void move(final List<String> positions) {
-        final String sourcePosition = positions.get(0);
-        final String targetPosition = positions.get(1);
-
-        move(Position.from(sourcePosition), Position.from(targetPosition));
+    public void move(final String source, final String target) {
+        move(Position.from(source), Position.from(target));
     }
 
     void move(final Position sourcePosition, final Position targetPosition) {

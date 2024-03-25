@@ -5,7 +5,6 @@ import chess.domain.ChessBoardMaker;
 import chess.domain.Command;
 import chess.view.InputView;
 import chess.view.OutputView;
-import java.util.List;
 
 public class ChessController {
 
@@ -18,26 +17,31 @@ public class ChessController {
     }
 
     public void runChess() {
-        if (Command.fromStartCommand(inputView.readStartCommand()) == Command.END) {
-            return;
-        }
-
+        outputView.printStart();
         final ChessBoard chessBoard = ChessBoardMaker.init();
-        outputView.printChessBoard(chessBoard.getPieces());
 
-        List<String> positions = inputView.readMoveCommand();
-        while (isNotEndCommand(positions)) {
-            playTurn(chessBoard, positions);
-            positions = inputView.readMoveCommand();
+        playWithCommand(chessBoard);
+    }
+
+    private void playWithCommand(final ChessBoard chessBoard) { // TODO: 인덴트 줄이기
+        while (true) {
+            CommandDto commandDto = CommandDto.from(inputView.readCommand());
+            Command command = commandDto.command();
+
+            if (command == Command.START) {
+                outputView.printChessBoard(chessBoard.getPieces());
+            }
+            if (command == Command.MOVE) {
+                playTurn(chessBoard, commandDto);
+            }
+            if (command == Command.END) {
+                return;
+            }
         }
     }
 
-    private boolean isNotEndCommand(final List<String> validInputPositions) {
-        return !validInputPositions.isEmpty();
-    }
-
-    private void playTurn(final ChessBoard chessBoard, final List<String> positions) {
-        chessBoard.move(positions);
+    private void playTurn(final ChessBoard chessBoard, final CommandDto commandDto) {
+        chessBoard.move(commandDto.source(), commandDto.target());
         outputView.printChessBoard(chessBoard.getPieces());
     }
 }

@@ -36,6 +36,13 @@
 - [x] direction, multidirection 테스트 새로
 - [x] position 테스트 새로
 - [x] file, rank 테스트 새로
+- [x] command dto 방식 적용
+  - [ ] start 안하고 바로 move 오류 수정
+- [ ] 리뷰 반영
+- [ ] view에 넘겨줄 때 dto 방식 고려
+- [ ] direction vector 방식 적용
+- [ ] move 메서드 개선
+- [ ] 우리 프로그램의 장점 고려, 유지
 
 ## 체스 말 이동 규칙
 

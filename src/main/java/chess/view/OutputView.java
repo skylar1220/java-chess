@@ -1,5 +1,6 @@
 package chess.view;
 
+import chess.domain.Command;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
 import chess.domain.piece.Rank;
@@ -9,6 +10,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class OutputView {
+
+    public void printStart() {
+        System.out.println("> 체스 게임을 시작합니다." + System.lineSeparator()
+                + "> 게임 시작 : " + Command.START + System.lineSeparator()
+                + "> 게임 종료 : " + Command.END + System.lineSeparator()
+                + "> 게임 이동 :  " + Command.MOVE + " source위치 target위치 - 예. " + Command.MOVE + " b2 b3");
+    }
 
     public void printChessBoard(final Map<Position, Piece> pieces) {
         final List<List<String>> board = sortByBoardOrder(pieces);
