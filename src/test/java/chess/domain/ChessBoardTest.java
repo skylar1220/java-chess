@@ -14,7 +14,7 @@ class ChessBoardTest {
 
     final ChessBoard chessBoard = ChessBoardMaker.init();
 
-    @DisplayName("경로에 기물이 존재하면 예외를 발생시킨다._룩의 경우")
+    @DisplayName("경로에 기물이 존재하면 예외를 발생시킨다._룩")
     @Test
     void existInWayRook() {
         // given
@@ -26,7 +26,7 @@ class ChessBoardTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("경로에 기물이 존재하면 예외를 발생시킨다._나이트의 경우")
+    @DisplayName("경로에 기물이 존재하면 예외를 발생시킨다._나이트")
     @Test
     void existInWayNight() {
         // given
@@ -38,7 +38,7 @@ class ChessBoardTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("경로에 기물이 존재하면 예외를 발생시킨다._비숍의 경우")
+    @DisplayName("경로에 기물이 존재하면 예외를 발생시킨다._비숍")
     @Test
     void existInWayBishop() {
         // given
@@ -50,7 +50,7 @@ class ChessBoardTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("경로에 기물이 존재하면 예외를 발생시킨다.킹의 경우")
+    @DisplayName("경로에 기물이 존재하면 예외를 발생시킨다._킹")
     @Test
     void existInWayKing() {
         // given
@@ -62,7 +62,7 @@ class ChessBoardTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("경로에 기물이 존재하면 예외를 발생시킨다.퀸의 경우")
+    @DisplayName("경로에 기물이 존재하면 예외를 발생시킨다._퀸")
     @Test
     void existInWayQueen() {
         // given
@@ -74,11 +74,11 @@ class ChessBoardTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("전략상 이동할 수 없는 위치이다.")
+    @DisplayName("전략상 이동할 수 없는 위치이다._폰")
     @Test
     void canNotMoveTo() {
         // given
-        final Position sourcePosition = new Position(File.A, Rank.TWO); // 폰
+        final Position sourcePosition = new Position(File.A, Rank.TWO);
         final Position targetPosition = new Position(File.A, Rank.FIVE);
 
         // when && then
@@ -86,11 +86,11 @@ class ChessBoardTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("빈칸이면 움직인다.")
+    @DisplayName("빈칸이면 움직인다._폰")
     @Test
     void moveWhenEmpty() {
         // given
-        final Position sourcePosition = new Position(File.A, Rank.TWO); // 폰
+        final Position sourcePosition = new Position(File.A, Rank.TWO);
         final Position targetPosition = new Position(File.A, Rank.FOUR);
         final Piece sourcePiece = chessBoard.findPieceBy(sourcePosition);
 
@@ -101,11 +101,11 @@ class ChessBoardTest {
         assertThat(chessBoard.getPieces().get(targetPosition)).isEqualTo(sourcePiece);
     }
 
-    @DisplayName("빈칸인데 경로상에 기물이 존재하면 움직일 수 없다.")
+    @DisplayName("빈칸인데 경로상에 기물이 존재하면 움직일 수 없다._룩")
     @Test
     void canNotMoveByExistingPiece() {
         // given
-        final Position sourcePosition = new Position(File.A, Rank.ONE); // 룩
+        final Position sourcePosition = new Position(File.A, Rank.ONE);
         final Position targetPosition = new Position(File.A, Rank.FIVE);
 
         // when && then
@@ -113,11 +113,11 @@ class ChessBoardTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("상대 기물을 잡으러 움직인다.")
+    @DisplayName("상대 기물을 잡으러 움직인다._나이트")
     @Test
     void moveToCatch() {
         // given
-        Position sourcePosition = new Position(File.B, Rank.ONE); // 나이트
+        Position sourcePosition = new Position(File.B, Rank.ONE);
         final Piece originPiece = chessBoard.findPieceBy(sourcePosition);
         Position targetPosition = new Position(File.C, Rank.THREE);
         chessBoard.move(sourcePosition, targetPosition);
@@ -135,12 +135,12 @@ class ChessBoardTest {
         assertThat(sourcePiece).isEqualTo(originPiece);
     }
 
-    @DisplayName("상대 기물을 잡으러 움직이는 도중에 기물이 존재하면 움직일 수 없다.")
+    @DisplayName("상대 기물을 잡으러 움직이는 도중에 기물이 존재하면 움직일 수 없다_룩")
     @Test
-    void canNotMoveToCatchByExistingPiece() {
+    void canNotMoveToCatchByExistingPiece_bishop() {
         // given
-        final Position sourcePosition = new Position(File.A, Rank.ONE); // 룩
-        final Position targetPosition = new Position(File.A, Rank.EIGHT);
+        final Position sourcePosition = new Position(File.C, Rank.ONE);
+        final Position targetPosition = new Position(File.C, Rank.THREE);
 
         // when && then
         assertThatThrownBy(() -> chessBoard.move(sourcePosition, targetPosition))

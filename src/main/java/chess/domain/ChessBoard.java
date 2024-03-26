@@ -3,8 +3,8 @@ package chess.domain;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
 import chess.domain.piece.type.Empty;
-import chess.domain.piece.type.Pawn;
 import java.util.Map;
+import java.util.Set;
 
 public class ChessBoard {
 
@@ -20,23 +20,17 @@ public class ChessBoard {
 
     void move(final Position sourcePosition, final Position targetPosition) {
         final Piece sourcePiece = findPieceBy(sourcePosition);
+        Set<Position> positions = sourcePiece.getPositions(sourcePosition, pieces);
 
-        if (sourcePiece.isClass(Pawn.class) && canPawnCatch(sourcePosition, targetPosition)) {
+        if (positions.contains(targetPosition)) {
             movePiece(sourcePosition, targetPosition);
             return;
         }
 
-        validateStrategy(sourcePosition, targetPosition);
-        validateJumpOver(sourcePosition, targetPosition);
-
-        if (isPieceExist(targetPosition)) {
-            validateNotMySide(sourcePiece, targetPosition);
-        }
-
-        movePiece(sourcePosition, targetPosition);
+        throw new IllegalArgumentException("[ERROR] 이동할 수 없는 위치입니다.");
     }
 
-    Piece findPieceBy(final Position input) {
+    public Piece findPieceBy(final Position input) {
         if (isPieceExist(input)) {
             return pieces.get(input);
         }
@@ -47,53 +41,11 @@ public class ChessBoard {
         return !pieces.get(input).isClass(Empty.class);
     }
 
-    private boolean canPawnCatch(final Position sourcePosition, final Position targetPosition) {
-        Piece sourcePiece = pieces.get(sourcePosition);
-        Piece targetPiece = pieces.get(targetPosition);
-        MultiDirection multiDirection = MultiDirection.of(sourcePosition, targetPosition);
-
-        if (!isPieceExist(targetPosition)) {
-            return false;
-        }
-        return ((multiDirection == MultiDirection.LEFT_DIAGONAL || multiDirection == MultiDirection.RIGHT_DIAGONAL)
-                && (sourcePosition.getRankDistance(targetPosition) == Pawn.DEFAULT_STEP))
-                && !sourcePiece.isMySide(targetPiece);
-    }
-
     private void movePiece(final Position sourcePosition, final Position targetPosition) {
         Piece sourcePiece = pieces.get(sourcePosition);
 
         pieces.put(targetPosition, sourcePiece);
         pieces.put(sourcePosition, new Empty());
-    }
-
-    private void validateStrategy(final Position sourcePosition, final Position targetPosition) {
-        Piece sourcePiece = findPieceBy(sourcePosition);
-
-        if (!sourcePiece.canMoveTo(sourcePosition, targetPosition)) {
-            throw new IllegalArgumentException("[ERROR] 전략상 이동할 수 없는 위치입니다.");
-        }
-    }
-
-    private void validateJumpOver(final Position sourcePosition, final Position targetPosition) {
-        if (existPieceInWay(sourcePosition, targetPosition)) {
-            throw new IllegalArgumentException("[ERROR] 경로상 기물이 존재합니다.");
-        }
-    }
-
-    private boolean existPieceInWay(final Position sourcePosition, final Position targetPosition) {
-        Piece sourcePiece = pieces.get(sourcePosition);
-
-        return sourcePiece.getRoute(sourcePosition, targetPosition).stream()
-                .anyMatch(this::isPieceExist);
-    }
-
-    private void validateNotMySide(final Piece sourcePiece, final Position targetPosition) {
-        final Piece targetPiece = findPieceBy(targetPosition);
-
-        if (sourcePiece.isMySide(targetPiece)) {
-            throw new IllegalArgumentException("[ERROR] 잡을 수 없는 기물입니다.");
-        }
     }
 
     public Map<Position, Piece> getPieces() {

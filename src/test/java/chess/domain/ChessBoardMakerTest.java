@@ -10,7 +10,7 @@ import chess.domain.piece.Rank;
 import chess.domain.piece.type.Bishop;
 import chess.domain.piece.type.Empty;
 import chess.domain.piece.type.King;
-import chess.domain.piece.type.Night;
+import chess.domain.piece.type.Knight;
 import chess.domain.piece.type.Pawn;
 import chess.domain.piece.type.Queen;
 import chess.domain.piece.type.Rook;
@@ -39,12 +39,12 @@ class ChessBoardMakerTest {
 
         // Black pieces
         expectedPieces.put(new Position(File.A, Rank.EIGHT), new Rook(Color.BLACK));
-        expectedPieces.put(new Position(File.B, Rank.EIGHT), new Night(Color.BLACK));
+        expectedPieces.put(new Position(File.B, Rank.EIGHT), new Knight(Color.BLACK));
         expectedPieces.put(new Position(File.C, Rank.EIGHT), new Bishop(Color.BLACK));
         expectedPieces.put(new Position(File.D, Rank.EIGHT), new Queen(Color.BLACK));
         expectedPieces.put(new Position(File.E, Rank.EIGHT), new King(Color.BLACK));
         expectedPieces.put(new Position(File.F, Rank.EIGHT), new Bishop(Color.BLACK));
-        expectedPieces.put(new Position(File.G, Rank.EIGHT), new Night(Color.BLACK));
+        expectedPieces.put(new Position(File.G, Rank.EIGHT), new Knight(Color.BLACK));
         expectedPieces.put(new Position(File.H, Rank.EIGHT), new Rook(Color.BLACK));
 
         expectedPieces.put(new Position(File.A, Rank.SEVEN), new Pawn(Color.BLACK));
@@ -107,12 +107,12 @@ class ChessBoardMakerTest {
         expectedPieces.put(new Position(File.H, Rank.TWO), new Pawn(Color.WHITE));
 
         expectedPieces.put(new Position(File.A, Rank.ONE), new Rook(Color.WHITE));
-        expectedPieces.put(new Position(File.B, Rank.ONE), new Night(Color.WHITE));
+        expectedPieces.put(new Position(File.B, Rank.ONE), new Knight(Color.WHITE));
         expectedPieces.put(new Position(File.C, Rank.ONE), new Bishop(Color.WHITE));
         expectedPieces.put(new Position(File.D, Rank.ONE), new Queen(Color.WHITE));
         expectedPieces.put(new Position(File.E, Rank.ONE), new King(Color.WHITE));
         expectedPieces.put(new Position(File.F, Rank.ONE), new Bishop(Color.WHITE));
-        expectedPieces.put(new Position(File.G, Rank.ONE), new Night(Color.WHITE));
+        expectedPieces.put(new Position(File.G, Rank.ONE), new Knight(Color.WHITE));
         expectedPieces.put(new Position(File.H, Rank.ONE), new Rook(Color.WHITE));
 
         return expectedPieces;

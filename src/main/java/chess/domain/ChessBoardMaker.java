@@ -8,7 +8,7 @@ import chess.domain.piece.Rank;
 import chess.domain.piece.type.Bishop;
 import chess.domain.piece.type.Empty;
 import chess.domain.piece.type.King;
-import chess.domain.piece.type.Night;
+import chess.domain.piece.type.Knight;
 import chess.domain.piece.type.Pawn;
 import chess.domain.piece.type.Queen;
 import chess.domain.piece.type.Rook;
@@ -54,12 +54,12 @@ public class ChessBoardMaker {
         final Map<Position, Piece> pieces = new LinkedHashMap<>();
 
         pieces.put(new Position(File.A, rank), new Rook(color));
-        pieces.put(new Position(File.B, rank), new Night(color));
+        pieces.put(new Position(File.B, rank), new Knight(color));
         pieces.put(new Position(File.C, rank), new Bishop(color));
         pieces.put(new Position(File.D, rank), new Queen(color));
         pieces.put(new Position(File.E, rank), new King(color));
         pieces.put(new Position(File.F, rank), new Bishop(color));
-        pieces.put(new Position(File.G, rank), new Night(color));
+        pieces.put(new Position(File.G, rank), new Knight(color));
         pieces.put(new Position(File.H, rank), new Rook(color));
 
         return pieces;

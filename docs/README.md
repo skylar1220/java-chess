@@ -45,6 +45,19 @@
 - [ ] move 메서드 개선
 - [ ] 우리 프로그램의 장점 고려, 유지
 - [ ] view에 넘겨줄 때 dto 방식 고려
+- [ ] 이동 가능 경로 반환 방식으로 변경
+  - [x] ROOK
+  - [x] BISHOP
+  - [x] NIGHT
+  - [x] PAWN
+  - [x] KING
+  - [x] QUEEN
+- [x] 새로 변경한 piece들 테스트 점검하기
+- [x] 새로 변경한 piece 테스트 점검하기
+- [x] 새로 변경한 chessBoard 테스트 점검하기
+- [x] 새로 변경한 position 테스트 점검하기
+- [ ] piece while문 개선하기 : bishop, rook
+- [ ] piece 전략 겹치는 것들 추상화하기
 
 ## 체스 말 이동 규칙
 

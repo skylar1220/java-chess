@@ -35,6 +35,14 @@ public enum File {
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 유효한 파일 입력이 아닙니다."));
     }
 
+    public File move(final int x) {
+        return fromIndex(index + x);
+    }
+
+    public boolean canMove(final int x) {
+        return index + x <= 8 && index + x > 0;
+    }
+
     public File right() {
         return fromIndex(this.index + 1);
     }

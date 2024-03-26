@@ -1,52 +1,44 @@
 package chess.domain.piece.type;
 
+import static chess.Fixtures.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import chess.domain.piece.Color;
 import chess.domain.piece.File;
+import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
 import chess.domain.piece.Rank;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class KingTest {
 
-    @DisplayName("킹을 직선으로 한칸 이동한다.")
+    /*
+    ........
+    ........
+    ........
+    ..***...
+    ..*k*...
+    ..***...
+    ........
+    ........
+     */
+    @DisplayName("킹의 이동 위치들을 반환한다.")
     @Test
-    void canMoveStraight() {
-        // given
+    void getRouteRightUp2() {
+// given
         final King king = new King(Color.WHITE);
+        Map<Position, Piece> pieces = new HashMap<>(EMPTY_PIECES);
+        pieces.put(D4, king);
 
         // when
-        final boolean canMove = king.canMoveTo(new Position(File.D, Rank.FIVE), new Position(File.D, Rank.SIX));
+        final Set<Position> positions = king.getPositions(new Position(File.D, Rank.FOUR), pieces);
+
 
         // then
-        assertThat(canMove).isTrue();
-    }
-
-    @DisplayName("킹을 대각선으로 한칸 이동한다.")
-    @Test
-    void canMoveDiagonal() {
-        // given
-        final King king = new King(Color.WHITE);
-
-        // when
-        final boolean canMove = king.canMoveTo(new Position(File.D, Rank.FIVE), new Position(File.E, Rank.SIX));
-
-        // then
-        assertThat(canMove).isTrue();
-    }
-
-    @DisplayName("킹은 직선, 대각선 한칸 초과로는 이동할 수 없다.")
-    @Test
-    void canNotMove() {
-        // given
-        final King king = new King(Color.BLACK);
-
-        // when
-        final boolean canMove = king.canMoveTo(new Position(File.D, Rank.FIVE), new Position(File.A, Rank.ONE));
-
-        // then
-        assertThat(canMove).isFalse();
+        assertThat(positions).contains(D5, E5, E4, E3, D3, C3, C4, C5);
     }
 }

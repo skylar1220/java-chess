@@ -1,5 +1,6 @@
 package chess.domain.piece;
 
+import chess.domain.Direction;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Set;
@@ -17,6 +18,12 @@ public class Position {
         this.rank = rank;
     }
 
+    public static Position from(final String input) {
+        String file = input.substring(0, 1);
+        String rank = input.substring(1);
+        return findPosition(File.fromSymbol(file), Rank.fromInput(rank));
+    }
+
     private static Set<Position> cachePositions() {
         return Arrays.stream(File.values())
                 .flatMap(file -> Arrays.stream(Rank.values()).map(rank -> new Position(file, rank)))
@@ -30,58 +37,16 @@ public class Position {
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 유효하지 않은 위치입니다."));
     }
 
-    public static Position from(final String input) {
-        String file = input.substring(0, 1);
-        String rank = input.substring(1);
-        return findPosition(File.fromSymbol(file), Rank.fromInput(rank));
+    public Position move(final Direction direction) {
+        return new Position(file.move(direction.x()), rank.move(direction.y()));
     }
 
-    public Position up() {
-        return new Position(this.file, this.rank.up());
+    public boolean canMove(final Direction direction) {
+        return file.canMove(direction.x()) && rank.canMove(direction.y());
     }
 
-    public Position right() {
-        return new Position(this.file.right(), this.rank);
-    }
-
-    public Position rightUp() {
-        return new Position(this.file.right(), this.rank.up());
-    }
-
-    public Position leftUp() {
-        return new Position(this.file.left(), this.rank.up());
-    }
-
-    public boolean isDiagonalWith(final Position target) {
-        return this.file.getDistance(target.file) == this.rank.getDistance(target.rank);
-    }
-
-    public int getRankDistance(final Position target) {
-        return this.rank.getDistance(target.rank);
-    }
-
-    public int getFileDistance(final Position target) {
-        return this.file.getDistance(target.file);
-    }
-
-    public boolean isFileBigger(final Position target) {
-        return this.file.isBigger(target.file);
-    }
-
-    public boolean isRankBigger(final Position target) {
-        return this.rank.isBigger(target.rank);
-    }
-
-    public boolean isSameRank(final Rank rank) {
-        return this.rank == rank;
-    }
-
-    public boolean isSameRank(final Position target) {
-        return this.rank == target.rank;
-    }
-
-    public boolean isSameFile(final Position target) {
-        return this.file == target.file;
+    public boolean isSameRank(final Rank other) {
+        return rank == other;
     }
 
     public File getFile() {

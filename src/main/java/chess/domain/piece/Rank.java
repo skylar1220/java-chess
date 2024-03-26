@@ -30,6 +30,14 @@ public enum Rank {
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 유효한 랭크 입력이 아닙니다."));
     }
 
+    public Rank move(final int y) {
+        return fromNumber(index + y);
+    }
+
+    public boolean canMove(final int y) {
+        return index + y <= 8 && index + y > 0;
+    }
+
     public Rank up() {
         return fromNumber(this.index + 1);
     }

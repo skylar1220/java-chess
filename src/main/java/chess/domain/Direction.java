@@ -1,33 +1,39 @@
 package chess.domain;
 
-import chess.domain.piece.Position;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.BiPredicate;
-
 public enum Direction {
-    RIGHT((source, target) -> source.isFileBigger(target)),
-    LEFT((source, target) -> !source.isFileBigger(target)),
-    UP((source, target) -> source.isRankBigger(target)),
-    DOWN((source, target) -> !source.isRankBigger(target)),
-    RIGHT_UP((source, target) -> source.isFileBigger(target) && source.isRankBigger(target)),
-    RIGHT_DOWN((source, target) -> source.isFileBigger(target) && !source.isRankBigger(target)),
-    LEFT_UP((source, target) -> !source.isFileBigger(target) && source.isRankBigger(target)),
-    LEFT_DOWN((source, target) -> !source.isFileBigger(target) && !source.isRankBigger(target));
+    UP(0, 1),
+    UP_UP(UP.x * 2, UP.y * 2),
+    DOWN(0, -1),
+    DOWN_DOWN(DOWN.x * 2, DOWN.y * 2),
+    LEFT(-1, 0),
+    RIGHT(1, 0),
+    LEFT_UP(LEFT.x, UP.y),
+    RIGHT_UP(RIGHT.x, UP.y),
+    LEFT_DOWN(LEFT.x, DOWN.y),
+    RIGHT_DOWN(RIGHT.x, DOWN.y),
+    UP_UP_LEFT(LEFT_DOWN.x, UP_UP.y),
+    UP_UP_RIGHT(RIGHT_DOWN.x, UP_UP.y),
+    LEFT_LEFT_UP(LEFT.x * 2, UP.y),
+    LEFT_LEFT_DOWN(LEFT.x * 2, DOWN.y),
+    RIGHT_RIGHT_UP(RIGHT.x * 2, UP.y),
+    RIGHT_RIGHT_DOWN(RIGHT.x * 2, DOWN.y),
+    DOWN_DOWN_LEFT(LEFT_DOWN.x, DOWN_DOWN.y),
+    DOWN_DOWN_RIGHT(RIGHT_DOWN.x, DOWN_DOWN.y),
+    ;
+    private final int x;
 
-    private final BiPredicate<Position, Position> predicate;
+    private final int y;
 
-    Direction(final BiPredicate<Position, Position> predicate) {
-        this.predicate = predicate;
+    Direction(final int x, final int y) {
+        this.x = x;
+        this.y = y;
     }
 
-    public static List<Direction> of(final Position source, final Position target) {
-        return Arrays.stream(values())
-                .filter(path -> path.test(source, target))
-                .toList();
+    public int x() {
+        return x;
     }
 
-    private boolean test(final Position source, final Position target) {
-        return predicate.test(source, target);
+    public int y() {
+        return y;
     }
 }

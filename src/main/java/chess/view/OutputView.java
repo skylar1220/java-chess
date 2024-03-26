@@ -39,19 +39,9 @@ public class OutputView {
             final int fileIndex = position.getFile().getIndex() - 1;
             final int rankIndex = 7 - (position.getRank().getIndex() - 1);
             final List<String> marks = board.get(rankIndex);
-            marks.set(fileIndex, convertToMark(positionPiece.getValue()));
+            marks.set(fileIndex, PieceFormatter.convertToMark(positionPiece.getValue()));
         }
 
         return board;
-    }
-
-    private String convertToMark(final Piece piece) {
-        if (piece.isBlack()) {
-            return String.valueOf(Character.toUpperCase(piece.getClass().getSimpleName().charAt(0)));
-        }
-        if (piece.isWhite()){
-            return String.valueOf(Character.toLowerCase(piece.getClass().getSimpleName().charAt(0)));
-        }
-        return ".";
     }
 }

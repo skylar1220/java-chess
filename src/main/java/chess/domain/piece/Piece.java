@@ -1,5 +1,7 @@
 package chess.domain.piece;
 
+import chess.domain.piece.type.Empty;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,12 +13,24 @@ public abstract class Piece {
         this.color = color;
     }
 
-    public abstract boolean canMoveTo(final Position source, final Position target);
+    public abstract Set<Position> getPositions(final Position sourcePosition, final Map<Position, Piece> pieces);
 
-    public abstract Set<Position> getRoute(final Position source, final Position target);
+    public abstract boolean isType(PieceType pieceType);
 
-    public boolean isMySide(final Piece other) {
-        return this.color == other.color;
+    public boolean isExist() {
+        return !isEmpty();
+    }
+
+    public boolean isEmpty() {
+        return getClass().equals(Empty.class);
+    }
+
+    public boolean isMyColor(final Color other) {
+        return this.color == other;
+    }
+
+    public boolean isEnemyColor(final Color other) {
+        return !isMyColor(other);
     }
 
     public boolean isBlack() {
