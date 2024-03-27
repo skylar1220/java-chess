@@ -8,12 +8,13 @@ import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
 import chess.domain.piece.Rank;
 import chess.domain.piece.type.Bishop;
+import chess.domain.piece.type.BlackPawn;
 import chess.domain.piece.type.Empty;
 import chess.domain.piece.type.King;
 import chess.domain.piece.type.Knight;
-import chess.domain.piece.type.Pawn;
 import chess.domain.piece.type.Queen;
 import chess.domain.piece.type.Rook;
+import chess.domain.piece.type.WhitePawn;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
@@ -47,14 +48,14 @@ class ChessBoardMakerTest {
         expectedPieces.put(new Position(File.G, Rank.EIGHT), new Knight(Color.BLACK));
         expectedPieces.put(new Position(File.H, Rank.EIGHT), new Rook(Color.BLACK));
 
-        expectedPieces.put(new Position(File.A, Rank.SEVEN), new Pawn(Color.BLACK));
-        expectedPieces.put(new Position(File.B, Rank.SEVEN), new Pawn(Color.BLACK));
-        expectedPieces.put(new Position(File.C, Rank.SEVEN), new Pawn(Color.BLACK));
-        expectedPieces.put(new Position(File.D, Rank.SEVEN), new Pawn(Color.BLACK));
-        expectedPieces.put(new Position(File.E, Rank.SEVEN), new Pawn(Color.BLACK));
-        expectedPieces.put(new Position(File.F, Rank.SEVEN), new Pawn(Color.BLACK));
-        expectedPieces.put(new Position(File.G, Rank.SEVEN), new Pawn(Color.BLACK));
-        expectedPieces.put(new Position(File.H, Rank.SEVEN), new Pawn(Color.BLACK));
+        expectedPieces.put(new Position(File.A, Rank.SEVEN), new BlackPawn());
+        expectedPieces.put(new Position(File.B, Rank.SEVEN), new BlackPawn());
+        expectedPieces.put(new Position(File.C, Rank.SEVEN), new BlackPawn());
+        expectedPieces.put(new Position(File.D, Rank.SEVEN), new BlackPawn());
+        expectedPieces.put(new Position(File.E, Rank.SEVEN), new BlackPawn());
+        expectedPieces.put(new Position(File.F, Rank.SEVEN), new BlackPawn());
+        expectedPieces.put(new Position(File.G, Rank.SEVEN), new BlackPawn());
+        expectedPieces.put(new Position(File.H, Rank.SEVEN), new BlackPawn());
 
         // Empty spaces
         expectedPieces.put(new Position(File.A, Rank.SIX), new Empty());
@@ -97,14 +98,14 @@ class ChessBoardMakerTest {
         expectedPieces.put(new Position(File.H, Rank.THREE), new Empty());
 
         // White pieces
-        expectedPieces.put(new Position(File.A, Rank.TWO), new Pawn(Color.WHITE));
-        expectedPieces.put(new Position(File.B, Rank.TWO), new Pawn(Color.WHITE));
-        expectedPieces.put(new Position(File.C, Rank.TWO), new Pawn(Color.WHITE));
-        expectedPieces.put(new Position(File.D, Rank.TWO), new Pawn(Color.WHITE));
-        expectedPieces.put(new Position(File.E, Rank.TWO), new Pawn(Color.WHITE));
-        expectedPieces.put(new Position(File.F, Rank.TWO), new Pawn(Color.WHITE));
-        expectedPieces.put(new Position(File.G, Rank.TWO), new Pawn(Color.WHITE));
-        expectedPieces.put(new Position(File.H, Rank.TWO), new Pawn(Color.WHITE));
+        expectedPieces.put(new Position(File.A, Rank.TWO), new WhitePawn());
+        expectedPieces.put(new Position(File.B, Rank.TWO), new WhitePawn());
+        expectedPieces.put(new Position(File.C, Rank.TWO), new WhitePawn());
+        expectedPieces.put(new Position(File.D, Rank.TWO), new WhitePawn());
+        expectedPieces.put(new Position(File.E, Rank.TWO), new WhitePawn());
+        expectedPieces.put(new Position(File.F, Rank.TWO), new WhitePawn());
+        expectedPieces.put(new Position(File.G, Rank.TWO), new WhitePawn());
+        expectedPieces.put(new Position(File.H, Rank.TWO), new WhitePawn());
 
         expectedPieces.put(new Position(File.A, Rank.ONE), new Rook(Color.WHITE));
         expectedPieces.put(new Position(File.B, Rank.ONE), new Knight(Color.WHITE));

@@ -1,9 +1,11 @@
 package chess.domain.piece;
 
+import chess.domain.Direction;
 import chess.domain.piece.type.Empty;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public abstract class Piece {
 
@@ -13,7 +15,21 @@ public abstract class Piece {
         this.color = color;
     }
 
-    public abstract Set<Position> getPositions(final Position sourcePosition, final Map<Position, Piece> pieces);
+    public Set<Position> getPositions(final Position sourcePosition, final Map<Position, Piece> pieces) {
+        return directions().stream()
+                .flatMap(direction -> getPositionsByDirection(direction, sourcePosition, pieces).stream())
+                .collect(Collectors.toSet());
+    }
+
+    protected abstract Set<Direction> directions();
+
+    protected abstract Set<Position> getPositionsByDirection(final Direction direction, Position sourcePosition,
+                                                          final Map<Position, Piece> pieces);
+
+    protected boolean isObstacleFree(final Map<Position, Piece> pieces, final Direction direction,
+                                     final Position sourcePostition) {
+        return isNextEnemy(pieces, direction, sourcePostition) || isNextEmpty(pieces, direction, sourcePostition);
+    }
 
     public abstract boolean isType(PieceType pieceType);
 
@@ -30,7 +46,7 @@ public abstract class Piece {
     }
 
     public boolean isEnemyColor(final Color other) {
-        return !isMyColor(other);
+        return color.isEnemyColor(other);
     }
 
     public boolean isBlack() {
@@ -43,6 +59,16 @@ public abstract class Piece {
 
     public boolean isClass(final Class<?> other) {
         return getClass().equals(other);
+    }
+
+    public boolean isNextEnemy(final Map<Position, Piece> pieces, final Direction direction,
+                                final Position currentPosition) {
+        return pieces.get(currentPosition.move(direction)).isEnemyColor(color);
+    }
+
+    private boolean isNextEmpty(final Map<Position, Piece> pieces, final Direction direction,
+                                final Position currentPosition) {
+        return !pieces.get(currentPosition.move(direction)).isExist();
     }
 
     @Override

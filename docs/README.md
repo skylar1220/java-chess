@@ -56,8 +56,9 @@
 - [x] 새로 변경한 piece 테스트 점검하기
 - [x] 새로 변경한 chessBoard 테스트 점검하기
 - [x] 새로 변경한 position 테스트 점검하기
-- [ ] piece while문 개선하기 : bishop, rook
-- [ ] piece 전략 겹치는 것들 추상화하기
+- [x] bishop, rook / king, knight 추상화
+- [ ] pawn 역할에 따라 추상화하기
+- [ ] slidingPiece 조건문 개선하기
 
 ## 체스 말 이동 규칙
 

@@ -11,7 +11,6 @@ import static chess.Fixtures.E5;
 import static chess.Fixtures.EMPTY_PIECES;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import chess.domain.piece.Color;
 import chess.domain.piece.File;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
@@ -38,7 +37,7 @@ class PawnTest {
     @Test
     void getPositions_white_first_time() {
         // given
-        final Pawn pawn = new Pawn(Color.WHITE);
+        final Pawn pawn = new WhitePawn();
         Map<Position, Piece> pieces = new HashMap<>(EMPTY_PIECES);
         pieces.put(D2, pawn);
 
@@ -63,7 +62,7 @@ class PawnTest {
     @Test
     void getPositions_black_first_time() {
         // given
-        final Pawn pawn = new Pawn(Color.BLACK);
+        final Pawn pawn = new BlackPawn();
         Map<Position, Piece> pieces = new HashMap<>(EMPTY_PIECES);
         pieces.put(D7, pawn);
 
@@ -88,8 +87,8 @@ class PawnTest {
     @Test
     void getPositions_white_catcahble() {
         // given
-        final Pawn pawn = new Pawn(Color.WHITE);
-        final Pawn enemy = new Pawn(Color.BLACK);
+        final Pawn pawn = new WhitePawn();
+        final Pawn enemy = new BlackPawn();
         Map<Position, Piece> pieces = new HashMap<>(EMPTY_PIECES);
         pieces.put(D4, pawn);
         pieces.put(E5, enemy);
@@ -115,8 +114,8 @@ class PawnTest {
     @Test
     void getPositions_black_catcahble() {
         // given
-        final Pawn pawn = new Pawn(Color.BLACK);
-        final Pawn enemy = new Pawn(Color.WHITE);
+        final Pawn pawn = new BlackPawn();
+        final Pawn enemy = new WhitePawn();
         Map<Position, Piece> pieces = new HashMap<>(EMPTY_PIECES);
         pieces.put(E5, pawn);
         pieces.put(D4, enemy);

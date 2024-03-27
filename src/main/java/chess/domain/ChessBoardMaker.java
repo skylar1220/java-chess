@@ -6,12 +6,13 @@ import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
 import chess.domain.piece.Rank;
 import chess.domain.piece.type.Bishop;
+import chess.domain.piece.type.BlackPawn;
 import chess.domain.piece.type.Empty;
 import chess.domain.piece.type.King;
 import chess.domain.piece.type.Knight;
-import chess.domain.piece.type.Pawn;
 import chess.domain.piece.type.Queen;
 import chess.domain.piece.type.Rook;
+import chess.domain.piece.type.WhitePawn;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -24,28 +25,43 @@ public class ChessBoardMaker {
         final Map<Position, Piece> pieces = new LinkedHashMap<>();
 
         pieces.putAll(createPieceWithoutPawn(Color.BLACK, Rank.EIGHT));
-        pieces.putAll(createPawn(Color.BLACK, Rank.SEVEN));
+        pieces.putAll(createBlackPawn(Rank.SEVEN));
         pieces.putAll(createEmpty(Rank.SIX));
         pieces.putAll(createEmpty(Rank.FIVE));
         pieces.putAll(createEmpty(Rank.FOUR));
         pieces.putAll(createEmpty(Rank.THREE));
-        pieces.putAll(createPawn(Color.WHITE, Rank.TWO));
+        pieces.putAll(createWhitePawn(Rank.TWO));
         pieces.putAll(createPieceWithoutPawn(Color.WHITE, Rank.ONE));
 
         return new ChessBoard(pieces);
     }
 
-    private static Map<Position, Piece> createPawn(final Color color, final Rank rank) {
+    private static Map<Position, Piece> createWhitePawn(final Rank rank) {
         final Map<Position, Piece> pieces = new LinkedHashMap<>();
 
-        pieces.put(new Position(File.A, rank), new Pawn(color));
-        pieces.put(new Position(File.B, rank), new Pawn(color));
-        pieces.put(new Position(File.C, rank), new Pawn(color));
-        pieces.put(new Position(File.D, rank), new Pawn(color));
-        pieces.put(new Position(File.E, rank), new Pawn(color));
-        pieces.put(new Position(File.F, rank), new Pawn(color));
-        pieces.put(new Position(File.G, rank), new Pawn(color));
-        pieces.put(new Position(File.H, rank), new Pawn(color));
+        pieces.put(new Position(File.A, rank), new WhitePawn());
+        pieces.put(new Position(File.B, rank), new WhitePawn());
+        pieces.put(new Position(File.C, rank), new WhitePawn());
+        pieces.put(new Position(File.D, rank), new WhitePawn());
+        pieces.put(new Position(File.E, rank), new WhitePawn());
+        pieces.put(new Position(File.F, rank), new WhitePawn());
+        pieces.put(new Position(File.G, rank), new WhitePawn());
+        pieces.put(new Position(File.H, rank), new WhitePawn());
+
+        return pieces;
+    }
+
+    private static Map<Position, Piece> createBlackPawn(final Rank rank) {
+        final Map<Position, Piece> pieces = new LinkedHashMap<>();
+
+        pieces.put(new Position(File.A, rank), new BlackPawn());
+        pieces.put(new Position(File.B, rank), new BlackPawn());
+        pieces.put(new Position(File.C, rank), new BlackPawn());
+        pieces.put(new Position(File.D, rank), new BlackPawn());
+        pieces.put(new Position(File.E, rank), new BlackPawn());
+        pieces.put(new Position(File.F, rank), new BlackPawn());
+        pieces.put(new Position(File.G, rank), new BlackPawn());
+        pieces.put(new Position(File.H, rank), new BlackPawn());
 
         return pieces;
     }

@@ -1,5 +1,6 @@
 package chess.domain.piece.type;
 
+import chess.domain.Direction;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
@@ -14,7 +15,13 @@ public class Empty extends Piece {
     }
 
     @Override
-    public Set<Position> getPositions(final Position sourcePosition, final Map<Position, Piece> pieces) {
+    protected Set<Direction> directions() {
+        return Set.of();
+    }
+
+    @Override
+    protected Set<Position> getPositionsByDirection(final Direction direction, final Position sourcePosition,
+                                                    final Map<Position, Piece> pieces) {
         return Set.of();
     }
 
