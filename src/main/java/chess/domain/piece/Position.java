@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 public class Position {
 
     private static final Set<Position> ALL_POSITIONS = cachePositions();
+    public static final int FILE_INDEX = 0;
+    public static final int RANK_INDEX = 1;
 
     private final File file;
     private final Rank rank;
@@ -19,8 +21,8 @@ public class Position {
     }
 
     public static Position from(final String input) {
-        String file = input.substring(0, 1);
-        String rank = input.substring(1);
+        String file = input.substring(FILE_INDEX, RANK_INDEX);
+        String rank = input.substring(RANK_INDEX);
         return findPosition(File.fromSymbol(file), Rank.fromInput(rank));
     }
 

@@ -37,7 +37,7 @@
 - [x] position 테스트 새로
 - [x] file, rank 테스트 새로
 - [x] command dto 방식 적용
-  - [ ] start 안하고 바로 move 오류 수정
+  - [ㅇ] start 안하고 바로 move 오류 수정
   - [ ] 인덴트 줄이기
 - [ ] view에 넘겨줄 때 dto 방식 고려
 - [x] 이동 가능 경로 반환 방식으로 변경
