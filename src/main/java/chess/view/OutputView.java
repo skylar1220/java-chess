@@ -7,7 +7,6 @@ import chess.domain.piece.Rank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class OutputView {
 
@@ -19,8 +18,16 @@ public class OutputView {
     }
 
     public void printChessBoard(final Map<Position, Piece> pieces) {
-        final List<List<String>> board = sortByBoardOrder(pieces);
-        board.forEach(this::printChessRow);
+        List<List<String>> rows = sortByBoardOrder(pieces);
+
+//        final List<List<String>> rows = Arrays.stream(Rank.values())
+//                .map(rank -> pieces.entrySet().stream()
+//                        .filter(positionPiece -> positionPiece.getKey().isSameRank(rank))
+//                        .map(positionPiece -> PieceFormatter.convertToMark(positionPiece.getValue()))
+//                        .toList())
+//                .toList();
+//
+        rows.forEach(this::printChessRow);
     }
 
     private void printChessRow(final List<String> row) {
@@ -30,17 +37,23 @@ public class OutputView {
 
     private List<List<String>> sortByBoardOrder(final Map<Position, Piece> pieces) {
         final List<List<String>> board = new ArrayList<>();
-        for (int i = 0; i < Rank.values().length; i++) {
-            board.add(new ArrayList<>(List.of(".", ".", ".", ".", ".", ".", ".", ".")));
+
+        for (int index = 8; index > 0; index--) {
+            Rank rank = Rank.fromNumber(index);
+            List<String> row = pieces.entrySet().stream()
+                    .filter(positionPiece -> positionPiece.getKey().isSameRank(rank))
+                    .map(positionPiece -> PieceFormatter.convertToMark(positionPiece.getValue()))
+                    .toList();
+            board.add(row);
         }
 
-        for (Entry<Position, Piece> positionPiece: pieces.entrySet()) {
-            final Position position = positionPiece.getKey();
-            final int fileIndex = position.getFile().getIndex() - 1;
-            final int rankIndex = 7 - (position.getRank().getIndex() - 1);
-            final List<String> marks = board.get(rankIndex);
-            marks.set(fileIndex, PieceFormatter.convertToMark(positionPiece.getValue()));
-        }
+//        for (Entry<Position, Piece> positionPiece : pieces.entrySet()) {
+//            final Position position = positionPiece.getKey();
+//            final int fileIndex = position.getFile().getIndex() - 1;
+//            final int rankIndex = 7 - (position.getRank().getIndex() - 1);
+//            final List<String> marks = board.get(rankIndex);
+//            marks.add(fileIndex, PieceFormatter.convertToMark(positionPiece.getValue()));
+//        }
 
         return board;
     }

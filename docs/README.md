@@ -39,13 +39,8 @@
 - [x] command dto 방식 적용
   - [ ] start 안하고 바로 move 오류 수정
   - [ ] 인덴트 줄이기
-- [ ] 전체 흐름 따라가보기
-- [ ] 리뷰 반영
-- [ ] direction vector 방식 적용
-- [ ] move 메서드 개선
-- [ ] 우리 프로그램의 장점 고려, 유지
 - [ ] view에 넘겨줄 때 dto 방식 고려
-- [ ] 이동 가능 경로 반환 방식으로 변경
+- [x] 이동 가능 경로 반환 방식으로 변경
   - [x] ROOK
   - [x] BISHOP
   - [x] NIGHT
@@ -57,8 +52,7 @@
 - [x] 새로 변경한 chessBoard 테스트 점검하기
 - [x] 새로 변경한 position 테스트 점검하기
 - [x] bishop, rook / king, knight 추상화
-- [ ] pawn 역할에 따라 추상화하기
-- [ ] slidingPiece 조건문 개선하기
+- [x] pawn 역할에 따라 추상화하기
 
 ## 체스 말 이동 규칙
 
