@@ -21,22 +21,27 @@ public class ChessController {
         outputView.printStart();
         final ChessBoard chessBoard = ChessBoardMaker.init();
 
-        playWithCommand(chessBoard);
+        CommandDto commandDto = CommandDto.from(inputView.readCommand());
+        Command command = commandDto.command();
+
+        if (command == Command.START) {
+            outputView.printChessBoard(chessBoard.getPieces());
+            playWithCommand(chessBoard, command);
+        }
+        if (command == Command.END) {
+            return;
+        }
+
+        throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력입니다.");
     }
 
-    private void playWithCommand(final ChessBoard chessBoard) {
-        while (true) {
+    private void playWithCommand(final ChessBoard chessBoard, Command command) {
+        while (command != Command.END) {
             CommandDto commandDto = CommandDto.from(inputView.readCommand());
-            Command command = commandDto.command();
+            command = commandDto.command();
 
-            if (command == Command.START) {
-                outputView.printChessBoard(chessBoard.getPieces());
-            }
             if (command == Command.MOVE) {
                 playTurn(chessBoard, commandDto);
-            }
-            if (command == Command.END) {
-                return;
             }
         }
     }
