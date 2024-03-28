@@ -2,6 +2,7 @@ package chess.domain;
 
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
+import chess.domain.piece.PieceType;
 import chess.domain.piece.Position;
 import chess.domain.piece.type.Empty;
 import java.util.Map;
@@ -41,6 +42,13 @@ public class ChessBoard {
             return pieces.get(input);
         }
         throw new IllegalArgumentException("[ERROR] 해당 위치에 기물이 존재하지 않습니다.");
+    }
+
+    public boolean doesKingDead() {
+        int kingCount = (int) pieces.values().stream()
+                .filter(piece -> piece.isType(PieceType.KING))
+                .count();
+        return kingCount != 2;
     }
 
     private boolean isPieceExist(final Position input) {

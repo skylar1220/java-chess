@@ -1,10 +1,18 @@
 package chess;
 
+import chess.domain.piece.Color;
 import chess.domain.piece.File;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
 import chess.domain.piece.Rank;
+import chess.domain.piece.type.Bishop;
+import chess.domain.piece.type.BlackPawn;
 import chess.domain.piece.type.Empty;
+import chess.domain.piece.type.King;
+import chess.domain.piece.type.Knight;
+import chess.domain.piece.type.Queen;
+import chess.domain.piece.type.Rook;
+import chess.domain.piece.type.WhitePawn;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -86,13 +94,116 @@ public final class Fixtures {
     }
 
     public static final Map<Position, Piece> EMPTY_PIECES = createPieces();
+    public static final Map<Position, Piece> GAMING_PIECES = createGamingPieces();
+
+    private static Map<Position, Piece> createGamingPieces() {
+        final Map<Position, Piece> pieces = new LinkedHashMap<>();
+
+        final Map<Position, Piece> pieces_a = Map.of(
+                A1, new Empty(),
+                A2, new Empty(),
+                A3, new WhitePawn(),
+                A4, new Empty(),
+                A5, new BlackPawn(),
+                A6, new Empty(),
+                A7, new Empty(),
+                A8, new Rook(Color.BLACK)
+        );
+
+        final Map<Position, Piece> pieces_b = Map.of(
+                B1, new Empty(),
+                B2, new WhitePawn(),
+                B3, new Empty(),
+                B4, new Rook(Color.WHITE),
+                B5, new Empty(),
+                B6, new BlackPawn(),
+                B7, new Empty(),
+                B8, new Bishop(Color.BLACK)
+        );
+
+        final Map<Position, Piece> pieces_c = Map.of(
+                C1, new Bishop(Color.WHITE),
+                C2, new Empty(),
+                C3, new Knight(Color.WHITE),
+                C4, new WhitePawn(),
+                C5, new BlackPawn(),
+                C6, new Empty(),
+                C7, new Empty(),
+                C8, new Bishop(Color.BLACK)
+        );
+
+        final Map<Position, Piece> pieces_d = Map.of(
+                D1, new Empty(),
+                D2, new WhitePawn(),
+                D3, new Empty(),
+                D4, new Empty(),
+                D5, new Empty(),
+                D6, new Empty(),
+                D7, new BlackPawn(),
+                D8, new Queen(Color.BLACK)
+        );
+
+        final Map<Position, Piece> pieces_e = Map.of(
+                E1, new Empty(),
+                E2, new WhitePawn(),
+                E3, new King(Color.WHITE),
+                E4, new BlackPawn(),
+                E5, new Queen(Color.WHITE),
+                E6, new Empty(),
+                E7, new Empty(),
+                E8, new King(Color.BLACK)
+        );
+
+        final Map<Position, Piece> pieces_f = Map.of(
+                F1, new Empty(),
+                F2, new Empty(),
+                F3, new WhitePawn(),
+                F4, new Empty(),
+                F5, new Empty(),
+                F6, new Empty(),
+                F7, new BlackPawn(),
+                F8, new Bishop(Color.BLACK)
+        );
+
+        final Map<Position, Piece> pieces_g = Map.of(
+                G1, new Knight(Color.WHITE),
+                G2, new Empty(),
+                G3, new Empty(),
+                G4, new WhitePawn(),
+                G5, new Bishop(Color.WHITE),
+                G6, new Empty(),
+                G7, new BlackPawn(),
+                G8, new Knight(Color.BLACK)
+        );
+
+        final Map<Position, Piece> pieces_h = Map.of(
+                H1, new Rook(Color.WHITE),
+                H2, new WhitePawn(),
+                H3, new Empty(),
+                H4, new Empty(),
+                H5, new Empty(),
+                H6, new Empty(),
+                H7, new BlackPawn(),
+                H8, new Knight(Color.BLACK)
+        );
+
+        pieces.putAll(pieces_a);
+        pieces.putAll(pieces_b);
+        pieces.putAll(pieces_c);
+        pieces.putAll(pieces_d);
+        pieces.putAll(pieces_e);
+        pieces.putAll(pieces_f);
+        pieces.putAll(pieces_g);
+        pieces.putAll(pieces_h);
+
+        return pieces;    }
 
     private static Map<Position, Piece> createPieces() {
         final Map<Position, Piece> pieces = new LinkedHashMap<>();
 
         final Map<Position, Piece> pieces_a = Map.of(
                 A1, new Empty(),
-                A2, new Empty(),
+            A2, new Empty(),
                 A3, new Empty(),
                 A4, new Empty(),
                 A5, new Empty(),

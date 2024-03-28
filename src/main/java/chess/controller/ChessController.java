@@ -26,6 +26,7 @@ public class ChessController {
         if (command == Command.START) {
             outputView.printChessBoard(chessGame.getChessBoard());
             playWithCommand(chessGame, command);
+            return;
         }
         if (command == Command.END) {
             return;
@@ -35,7 +36,7 @@ public class ChessController {
     }
 
     private void playWithCommand(final ChessGame chessGame, Command command) {
-        while (command != Command.END) {
+        while (command != Command.END && !chessGame.isEnd()) {
             CommandDto commandDto = CommandDto.from(inputView.readCommand());
             command = commandDto.command();
 
@@ -48,5 +49,6 @@ public class ChessController {
     private void playTurn(final ChessGame chessGame, final CommandDto commandDto) {
         chessGame.play(commandDto.source(), commandDto.target());
         outputView.printChessBoard(chessGame.getChessBoard());
+
     }
 }

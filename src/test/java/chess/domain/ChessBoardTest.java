@@ -1,5 +1,6 @@
 package chess.domain;
 
+import static chess.Fixtures.GAMING_PIECES;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
@@ -7,6 +8,7 @@ import chess.domain.piece.File;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
 import chess.domain.piece.Rank;
+import java.util.HashMap;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -145,5 +147,53 @@ class ChessBoardTest {
         // when && then
         assertThatThrownBy(() -> chessBoard.move(sourcePosition, targetPosition))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    /*
+    RNBQKBNR -> K를 잡음
+    ...P.PPP
+    .P......
+    P.P.q.b. -> q이
+    .rp.P.p.
+    p.n.kp..
+    .p.pp..p
+    ..b...nr
+     */
+    @DisplayName("킹이 잡혔는지 확인한다.")
+    @Test
+    void doesKingDead() {
+        // given
+        final ChessBoard newChessBoard = new ChessBoard(new HashMap<>(GAMING_PIECES));
+
+        // when
+        newChessBoard.move("e5", "e8");
+        final boolean doesKingDead = newChessBoard.doesKingDead();
+
+        // then
+        assertThat(doesKingDead).isTrue();
+    }
+
+    /*
+    RNBQKBNR
+    ...P.PPP
+    .P......
+    P.P.q.b.
+    .rp.P.p.
+    p.n.kp..
+    .p.pp..p
+    ..b...nr
+     */
+    @DisplayName("킹이 잡히지 않음을 확인한다.")
+    @Test
+    void doesNotKingDead() {
+        // given
+        final ChessBoard newChessBoard = new ChessBoard(new HashMap<>(GAMING_PIECES));
+
+        // when
+        newChessBoard.move("e5", "e6");
+        final boolean doesKingDead = newChessBoard.doesKingDead();
+
+        // then
+        assertThat(doesKingDead).isFalse();
     }
 }

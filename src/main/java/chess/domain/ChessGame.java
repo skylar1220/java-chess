@@ -21,6 +21,10 @@ public class ChessGame {
         currentColor = currentColor.opposite();
     }
 
+    public boolean isEnd() {
+        return chessBoard.doesKingDead();
+    }
+
     private void validateTurn(final String sourcePosition) {
         if (!chessBoard.isPieceColor(sourcePosition, currentColor)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 순서입니다.");
