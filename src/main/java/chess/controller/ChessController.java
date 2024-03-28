@@ -1,7 +1,6 @@
 package chess.controller;
 
-import chess.domain.ChessBoard;
-import chess.domain.ChessBoardMaker;
+import chess.domain.ChessGame;
 import chess.domain.Command;
 import chess.dto.CommandDto;
 import chess.view.InputView;
@@ -19,14 +18,14 @@ public class ChessController {
 
     public void runChess() {
         outputView.printStart();
-        final ChessBoard chessBoard = ChessBoardMaker.init();
+        final ChessGame chessGame = new ChessGame();
 
         CommandDto commandDto = CommandDto.from(inputView.readCommand());
         Command command = commandDto.command();
 
         if (command == Command.START) {
-            outputView.printChessBoard(chessBoard.getPieces());
-            playWithCommand(chessBoard, command);
+            outputView.printChessBoard(chessGame.getChessBoard());
+            playWithCommand(chessGame, command);
         }
         if (command == Command.END) {
             return;
@@ -35,19 +34,19 @@ public class ChessController {
         throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력입니다.");
     }
 
-    private void playWithCommand(final ChessBoard chessBoard, Command command) {
+    private void playWithCommand(final ChessGame chessGame, Command command) {
         while (command != Command.END) {
             CommandDto commandDto = CommandDto.from(inputView.readCommand());
             command = commandDto.command();
 
             if (command == Command.MOVE) {
-                playTurn(chessBoard, commandDto);
+                playTurn(chessGame, commandDto);
             }
         }
     }
 
-    private void playTurn(final ChessBoard chessBoard, final CommandDto commandDto) {
-        chessBoard.move(commandDto.source(), commandDto.target());
-        outputView.printChessBoard(chessBoard.getPieces());
+    private void playTurn(final ChessGame chessGame, final CommandDto commandDto) {
+        chessGame.play(commandDto.source(), commandDto.target());
+        outputView.printChessBoard(chessGame.getChessBoard());
     }
 }

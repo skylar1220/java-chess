@@ -15,4 +15,11 @@ public enum Color {
         }
         return false;
     }
+
+    public Color opposite() {
+        if (this == BLACK) {
+            return WHITE;
+        }
+        return BLACK;
+    }
 }

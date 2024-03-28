@@ -1,5 +1,6 @@
 package chess.domain;
 
+import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
 import chess.domain.piece.type.Empty;
@@ -14,12 +15,17 @@ public class ChessBoard {
         this.pieces = pieces;
     }
 
-    public void move(final String source, final String target) {
-        move(Position.from(source), Position.from(target));
+    public boolean isPieceColor(final String sourcePosition, final Color color) {
+        final Piece sourcePiece = findPieceBy(Position.from(sourcePosition));
+        return sourcePiece.isMyColor(color);
     }
 
-    void move(final Position sourcePosition, final Position targetPosition) {
+    public void move(final String sourcePosition, final String targetPosition) {
+        move(Position.from(sourcePosition), Position.from(targetPosition));
+    }
+    public void move(final Position sourcePosition, final Position targetPosition) {
         final Piece sourcePiece = findPieceBy(sourcePosition);
+
         Set<Position> positions = sourcePiece.getPositions(sourcePosition, pieces);
 
         if (positions.contains(targetPosition)) {
