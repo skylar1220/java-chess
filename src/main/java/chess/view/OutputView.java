@@ -23,18 +23,32 @@ public class OutputView {
         rows.forEach(this::printChessRow);
     }
 
-    public void printResult(final Map<Color, Double> scores) {
-        Double blackScore = scores.get(Color.BLACK);
-        Double whiteScore = scores.get(Color.WHITE);
-
-        System.out.printf("블랙 기물 점수: %.1f", blackScore);
-        System.out.println();
-        System.out.printf("화이트 기물 점수: %.1f", whiteScore);
-    }
-
     private void printChessRow(final List<String> row) {
         row.forEach(System.out::print);
         System.out.println();
+    }
+
+    public void printScore(final Map<Color, Double> scores) {
+        Double blackScore = scores.get(Color.BLACK);
+        Double whiteScore = scores.get(Color.WHITE);
+
+        System.out.printf("블랙 기물 점수: %.1f" + System.lineSeparator(), blackScore);
+        System.out.printf("화이트 기물 점수: %.1f" + System.lineSeparator(), whiteScore);
+    }
+
+    public void printWinnner(final List<Color> rawWinners) {
+        List<String> winners = rawWinners.stream()
+                .map(this::convertColor)
+                .toList();
+
+        System.out.printf("우세 진영은 %s입니다.", String.join(",", winners));
+    }
+
+    private String convertColor(final Color color) {
+        if (color == Color.BLACK) {
+            return "블랙";
+        }
+        return "화이트";
     }
 
     private List<List<String>> sortByBoardOrder(final Map<Position, Piece> pieces) {

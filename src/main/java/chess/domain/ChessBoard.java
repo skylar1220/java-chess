@@ -5,7 +5,9 @@ import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
 import chess.domain.piece.Position;
 import chess.domain.piece.type.Empty;
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -19,13 +21,6 @@ public class ChessBoard {
         this.pieces = pieces;
         this.scores = new EnumMap<>(Color.class);
     }
-//
-//    private Map<Color, Double> initScore() {
-//        Map<Color, Double> scores = new HashMap<>();
-//        scores.put(Color.BLACK, 0.0);
-//        scores.put(Color.WHITE, 0.0);
-//        return scores;
-//    }
 
     public boolean isPieceColor(final String sourcePosition, final Color color) {
         final Piece sourcePiece = findPieceBy(Position.from(sourcePosition));
@@ -97,6 +92,21 @@ public class ChessBoard {
                         && positionPiece.getValue().isMyColor(piece))
                 .count();
         return count > 1;
+    }
+
+    public List<Color> getWinners() {
+        List<Color> winners = new ArrayList<>();
+
+        Double blackScore = scores.get(Color.BLACK);
+        Double whiteScore = scores.get(Color.WHITE);
+
+        if (blackScore >= whiteScore) {
+            winners.add(Color.BLACK);
+        }
+        if (blackScore <= whiteScore) {
+            winners.add(Color.WHITE);
+        }
+        return winners;
     }
 
     public Map<Position, Piece> getPieces() {

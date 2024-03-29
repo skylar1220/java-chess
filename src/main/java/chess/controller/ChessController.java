@@ -44,8 +44,8 @@ public class ChessController {
                 playTurn(chessGame, commandDto);
             }
             if (command == Command.STATUS) {
-                outputView.printResult(chessGame.getScore());
-//                outputView.printResult(chessGame.getWinResult());
+                outputView.printScore(chessGame.getScore());
+                outputView.printWinnner(chessGame.getWinners());
             }
         }
 

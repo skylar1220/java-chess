@@ -3,6 +3,7 @@ package chess.domain;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
+import java.util.List;
 import java.util.Map;
 
 public class ChessGame {
@@ -24,6 +25,10 @@ public class ChessGame {
         validateTurn(sourcePosition);
         chessBoard.move(sourcePosition, targetPosition);
         currentColor = currentColor.opposite();
+    }
+
+    public List<Color> getWinners() {
+        return chessBoard.getWinners();
     }
 
     public boolean isEnd() {
