@@ -1,6 +1,7 @@
 package chess.view;
 
 import chess.domain.Command;
+import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
 import chess.domain.piece.Rank;
@@ -20,6 +21,15 @@ public class OutputView {
     public void printChessBoard(final Map<Position, Piece> pieces) {
         List<List<String>> rows = sortByBoardOrder(pieces);
         rows.forEach(this::printChessRow);
+    }
+
+    public void printResult(final Map<Color, Double> scores) {
+        Double blackScore = scores.get(Color.BLACK);
+        Double whiteScore = scores.get(Color.WHITE);
+
+        System.out.printf("블랙 기물 점수: %.1f", blackScore);
+        System.out.println();
+        System.out.printf("화이트 기물 점수: %.1f", whiteScore);
     }
 
     private void printChessRow(final List<String> row) {

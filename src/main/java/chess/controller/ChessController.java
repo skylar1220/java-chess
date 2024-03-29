@@ -43,10 +43,10 @@ public class ChessController {
             if (command == Command.MOVE) {
                 playTurn(chessGame, commandDto);
             }
-//            if (command == Command.STATUS) {
-//                outputView.printResult(chessGame.getScore());
+            if (command == Command.STATUS) {
+                outputView.printResult(chessGame.getScore());
 //                outputView.printResult(chessGame.getWinResult());
-//            }
+            }
         }
 
     }
