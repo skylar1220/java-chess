@@ -5,8 +5,9 @@ import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
 import chess.domain.piece.Position;
 import chess.domain.piece.type.Empty;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 public class ChessBoard {
@@ -16,8 +17,15 @@ public class ChessBoard {
 
     public ChessBoard(final Map<Position, Piece> pieces) {
         this.pieces = pieces;
-        this.scores = new HashMap<>();
+        this.scores = new EnumMap<>(Color.class);
     }
+//
+//    private Map<Color, Double> initScore() {
+//        Map<Color, Double> scores = new HashMap<>();
+//        scores.put(Color.BLACK, 0.0);
+//        scores.put(Color.WHITE, 0.0);
+//        return scores;
+//    }
 
     public boolean isPieceColor(final String sourcePosition, final Color color) {
         final Piece sourcePiece = findPieceBy(Position.from(sourcePosition));
@@ -61,29 +69,34 @@ public class ChessBoard {
 
     private void movePiece(final Position sourcePosition, final Position targetPosition) {
         Piece sourcePiece = pieces.get(sourcePosition);
-        Piece targetPiece = pieces.get(targetPosition);
 
         pieces.put(targetPosition, sourcePiece);
-        addScore(targetPosition, targetPiece);
         pieces.put(sourcePosition, new Empty());
+
+        scores.put(Color.WHITE, calculateScore(Color.WHITE));
+        scores.put(Color.BLACK, calculateScore( Color.BLACK));
     }
 
-    private void addScore(final Position targetPosition, final Piece targetPiece) {
-        Color color = pieces.get(targetPosition).getColor();
+    private double calculateScore(final Color color) {
+        double score = 0;
+        for (Entry<Position, Piece> positionPiece : pieces.entrySet()) {
+            Piece piece = positionPiece.getValue();
+            Position position = positionPiece.getKey();
 
-        if (targetPiece.isExist()) {
-            double score = targetPiece.getScore(hasSameFilePawn(targetPosition));
-            scores.put(color, scores.getOrDefault(color, 0.0) + score);
+            if (piece.isMyColor(color)) {
+                score += piece.getScore(hasSameFilePawn3(position, piece));
+            }
         }
+        return score;
     }
 
-    private boolean hasSameFilePawn(final Position targetPosition) {
-        Piece targetPiece = findPieceBy(targetPosition);
-        return pieces.entrySet().stream()
-                .anyMatch(positionPiece -> positionPiece.getKey().isSameFile(targetPosition)
+    private boolean hasSameFilePawn3(final Position position, final Piece piece) {
+        long count = pieces.entrySet().stream()
+                .filter(positionPiece -> positionPiece.getKey().isSameFile(position)
                         && positionPiece.getValue().isType(PieceType.PAWN)
-                        && positionPiece.getValue().isEnemyColor(targetPiece)
-                );
+                        && positionPiece.getValue().isMyColor(piece))
+                .count();
+        return count > 1;
     }
 
     public Map<Position, Piece> getPieces() {

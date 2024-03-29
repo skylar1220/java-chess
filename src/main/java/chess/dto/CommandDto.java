@@ -29,6 +29,10 @@ public record CommandDto(Command command, String source, String target) {
             return new CommandDto(Command.END, "", "");
         }
 
+        if (input.equals(Command.STATUS.getMessage())) {
+            return new CommandDto(Command.STATUS, "", "");
+        }
+
         List<String> splits = Arrays.asList(input.split(" "));
         validateMoveCommand(splits);
         String source = splits.get(1);

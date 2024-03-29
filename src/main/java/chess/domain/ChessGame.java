@@ -39,4 +39,8 @@ public class ChessGame {
     public Map<Position, Piece> getChessBoard() {
         return chessBoard.getPieces();
     }
+
+    public Map<Color, Double> getScore() {
+        return chessBoard.getScores();
+    }
 }

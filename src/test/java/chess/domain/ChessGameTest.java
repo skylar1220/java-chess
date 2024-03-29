@@ -78,13 +78,13 @@ public class ChessGameTest {
     RNB.KBNR
     ...P.PPP
     .P......
-    P.P.q.b. -> 3. q가 N을 잡는다. 2.5
-    .rpQP.p. -> 2. Q가 p를 잡는다. 0.5
-    p.n.kp.. -> 1. p가 P를 잡는다. 1
+    P.P.q.b. -> 3. q가 N을 잡는다. = black -2.5
+    .rpQP.p. -> 2. Q가 p를 잡는다. = white -0.5, 0.5
+    p.n.kp.. -> 1. p가 P를 잡는다. = black -1
     .p.pp..p
     ..b...nr
      */
-    @DisplayName("잡힌 말들의 점수를 구한다.")
+    @DisplayName("남은 말들의 점수를 구한다.")
     @Test
     void getScore() {
         // given
@@ -98,6 +98,6 @@ public class ChessGameTest {
         Map<Color, Double> scores = chessBoard.getScores();
 
         // then
-        assertThat(scores).contains(entry(Color.WHITE, 3.5), entry(Color.BLACK, 0.5));
+        assertThat(scores).contains(entry(Color.WHITE, 37.0), entry(Color.BLACK, 34.5));
     }
 }
