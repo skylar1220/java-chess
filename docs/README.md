@@ -46,6 +46,8 @@
 - [x] 새로 변경한 position 테스트 점검하기
 - [x] bishop, rook / king, knight 추상화
 - [x] pawn 역할에 따라 추상화하기
+- [ ] 폰이 아닌 기물들에 getPawnScore() 있는 것 해결하기 
+- [ ] start 후에 다시 start 입력시 예외나지 않는 오류 해결하기
 
 ## 체스 말 이동 규칙
 

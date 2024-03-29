@@ -10,12 +10,21 @@ public record CommandDto(Command command, String source, String target) {
     public static final int MOVE_COMMAND_POSITION_START_INDEX = 1;
     public static final int MOVE_COMMAND_MESSAGE_INDEX = 0;
 
-    public static CommandDto from(String input) {
+    public static CommandDto fromStart(final String input) {
         validateBlank(input);
 
         if (input.equals(Command.START.getMessage())) {
             return new CommandDto(Command.START, "", "");
         }
+        if (input.equals(Command.END.getMessage())) {
+            return new CommandDto(Command.END, "", "");
+        }
+        throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력입니다.");
+    }
+
+    public static CommandDto from(String input) {
+        validateBlank(input);
+
         if (input.equals(Command.END.getMessage())) {
             return new CommandDto(Command.END, "", "");
         }

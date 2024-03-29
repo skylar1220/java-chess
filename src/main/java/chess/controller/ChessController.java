@@ -20,7 +20,7 @@ public class ChessController {
         outputView.printStart();
         final ChessGame chessGame = new ChessGame();
 
-        CommandDto commandDto = CommandDto.from(inputView.readCommand());
+        CommandDto commandDto = CommandDto.fromStart(inputView.readCommand());
         Command command = commandDto.command();
 
         if (command == Command.START) {
@@ -43,7 +43,12 @@ public class ChessController {
             if (command == Command.MOVE) {
                 playTurn(chessGame, commandDto);
             }
+//            if (command == Command.STATUS) {
+//                outputView.printResult(chessGame.getScore());
+//                outputView.printResult(chessGame.getWinResult());
+//            }
         }
+
     }
 
     private void playTurn(final ChessGame chessGame, final CommandDto commandDto) {
