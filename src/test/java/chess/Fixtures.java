@@ -118,7 +118,7 @@ public final class Fixtures {
                 B5, new Empty(),
                 B6, new BlackPawn(),
                 B7, new Empty(),
-                B8, new Bishop(Color.BLACK)
+                B8, new Knight(Color.BLACK)
         );
 
         final Map<Position, Piece> pieces_c = Map.of(
@@ -136,11 +136,11 @@ public final class Fixtures {
                 D1, new Empty(),
                 D2, new WhitePawn(),
                 D3, new Empty(),
-                D4, new Empty(),
+                D4, new Queen(Color.BLACK),
                 D5, new Empty(),
                 D6, new Empty(),
                 D7, new BlackPawn(),
-                D8, new Queen(Color.BLACK)
+                D8, new Empty()
         );
 
         final Map<Position, Piece> pieces_e = Map.of(
@@ -184,7 +184,7 @@ public final class Fixtures {
                 H5, new Empty(),
                 H6, new Empty(),
                 H7, new BlackPawn(),
-                H8, new Knight(Color.BLACK)
+                H8, new Rook(Color.BLACK)
         );
 
         pieces.putAll(pieces_a);

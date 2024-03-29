@@ -15,6 +15,11 @@ public class ChessGame {
         this.currentColor = Color.WHITE;
     }
 
+    ChessGame(final ChessBoard chessBoard) {
+        this.chessBoard = chessBoard;
+        this.currentColor = Color.WHITE;
+    }
+
     public void play(final String sourcePosition, final String targetPosition) {
         validateTurn(sourcePosition);
         chessBoard.move(sourcePosition, targetPosition);

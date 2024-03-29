@@ -150,11 +150,11 @@ class ChessBoardTest {
     }
 
     /*
-    RNBQKBNR -> K를 잡음
+    RNB.KBNR -> K를 잡음
     ...P.PPP
     .P......
     P.P.q.b. -> q이
-    .rp.P.p.
+    .rpQP.p.
     p.n.kp..
     .p.pp..p
     ..b...nr
@@ -174,11 +174,11 @@ class ChessBoardTest {
     }
 
     /*
-    RNBQKBNR
+    RNB.KBNR
     ...P.PPP
     .P......
     P.P.q.b.
-    .rp.P.p.
+    .rpQP.p.
     p.n.kp..
     .p.pp..p
     ..b...nr
@@ -187,13 +187,39 @@ class ChessBoardTest {
     @Test
     void doesNotKingDead() {
         // given
-        final ChessBoard newChessBoard = new ChessBoard(new HashMap<>(GAMING_PIECES));
+        final ChessBoard chessBoard = new ChessBoard(new HashMap<>(GAMING_PIECES));
 
         // when
-        newChessBoard.move("e5", "e6");
-        final boolean doesKingDead = newChessBoard.doesKingDead();
+        chessBoard.move("e5", "e6");
+        final boolean doesKingDead = chessBoard.doesKingDead();
 
         // then
         assertThat(doesKingDead).isFalse();
     }
+
+//    /*
+//    RNB.KBNR
+//    ...P.PPP
+//    .P......
+//    P.P.q.b. -> 1. q가 P를 잡는다.
+//    .rpQP.p. -> 2. Q가 n을 잡는다.
+//    p.n.kp.. -> 3. p가 P를 잡는다.
+//    .p.pp..p
+//    ..b...nr
+//     */
+//    @DisplayName("잡힌 말들을 가져온다.")
+//    @Test
+//    void getScore() {
+//        // given
+//        final ChessBoard chessBoard = new ChessBoard(new HashMap<>(Fixtures.GAMING_PIECES));
+//
+//        // when
+//        chessBoard.move("e5", "c5");
+//        chessBoard.move("d4", "c3");
+//        chessBoard.move("f3", "e4");
+//        Map<Color, Double> scores = chessBoard.getScores();
+//
+//        // then
+//        assertThat(scores).contains(entry(Color.WHITE, 1.0), entry(Color.BLACK, 1.0));
+//    }
 }

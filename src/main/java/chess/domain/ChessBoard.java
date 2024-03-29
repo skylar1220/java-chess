@@ -5,15 +5,18 @@ import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
 import chess.domain.piece.Position;
 import chess.domain.piece.type.Empty;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 public class ChessBoard {
 
-    private Map<Position, Piece> pieces;
+    private final Map<Position, Piece> pieces;
+    private final Map<Color, Double> scores;
 
     public ChessBoard(final Map<Position, Piece> pieces) {
         this.pieces = pieces;
+        this.scores = new HashMap<>();
     }
 
     public boolean isPieceColor(final String sourcePosition, final Color color) {
@@ -24,6 +27,7 @@ public class ChessBoard {
     public void move(final String sourcePosition, final String targetPosition) {
         move(Position.from(sourcePosition), Position.from(targetPosition));
     }
+
     public void move(final Position sourcePosition, final Position targetPosition) {
         final Piece sourcePiece = findPieceBy(sourcePosition);
 
@@ -57,13 +61,37 @@ public class ChessBoard {
 
     private void movePiece(final Position sourcePosition, final Position targetPosition) {
         Piece sourcePiece = pieces.get(sourcePosition);
+        Piece targetPiece = pieces.get(targetPosition);
 
         pieces.put(targetPosition, sourcePiece);
+        addScore(targetPosition, targetPiece);
         pieces.put(sourcePosition, new Empty());
+    }
+
+    private void addScore(final Position targetPosition, final Piece targetPiece) {
+        Color color = pieces.get(targetPosition).getColor();
+
+        if (targetPiece.isExist()) {
+            double score = targetPiece.getScore(hasSameFilePawn(targetPosition));
+            scores.put(color, scores.getOrDefault(color, 0.0) + score);
+        }
+    }
+
+    private boolean hasSameFilePawn(final Position targetPosition) {
+        Piece targetPiece = findPieceBy(targetPosition);
+        return pieces.entrySet().stream()
+                .anyMatch(positionPiece -> positionPiece.getKey().isSameFile(targetPosition)
+                        && positionPiece.getValue().isType(PieceType.PAWN)
+                        && positionPiece.getValue().isEnemyColor(targetPiece)
+                );
     }
 
     public Map<Position, Piece> getPieces() {
         return pieces;
+    }
+
+    public Map<Color, Double> getScores() {
+        return scores;
     }
 
     @Override

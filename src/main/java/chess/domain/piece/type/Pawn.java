@@ -36,4 +36,17 @@ public abstract class Pawn extends Piece {
     public boolean isType(final PieceType pieceType) {
         return pieceType == PieceType.PAWN;
     }
+
+    @Override
+    public double getScore() {
+        return 0;
+    }
+
+    @Override
+    protected double getPawnScore(final boolean hasSameFilePawn) {
+        if (hasSameFilePawn) {
+            return 0.5;
+        }
+        return 1;
+    }
 }

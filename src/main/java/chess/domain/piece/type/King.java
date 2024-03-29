@@ -26,6 +26,16 @@ public class King extends JumpingPiece {
     }
 
     @Override
+    public double getScore() {
+        return 0;
+    }
+
+    @Override
+    public double getPawnScore(final boolean hasSameFilePawn) {
+        return 0;
+    }
+
+    @Override
     public boolean isType(final PieceType pieceType) {
         return pieceType == PieceType.KING;
     }

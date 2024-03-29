@@ -21,17 +21,28 @@ public abstract class Piece {
                 .collect(Collectors.toSet());
     }
 
+    public abstract double getScore();
+
+    public abstract boolean isType(PieceType pieceType);
+
     protected abstract Set<Direction> directions();
 
     protected abstract Set<Position> getPositionsByDirection(final Direction direction, Position sourcePosition,
-                                                          final Map<Position, Piece> pieces);
+                                                             final Map<Position, Piece> pieces);
 
     protected boolean isObstacleFree(final Map<Position, Piece> pieces, final Direction direction,
                                      final Position sourcePostition) {
         return isNextEnemy(pieces, direction, sourcePostition) || isNextEmpty(pieces, direction, sourcePostition);
     }
 
-    public abstract boolean isType(PieceType pieceType);
+    protected abstract double getPawnScore(final boolean hasSameFilePawn);
+
+    public double getScore(final boolean hasSameFilePawn) {
+        if (isType(PieceType.PAWN)) {
+           return getPawnScore(hasSameFilePawn);
+        }
+        return getScore();
+    }
 
     public boolean isExist() {
         return !isEmpty();
@@ -45,8 +56,16 @@ public abstract class Piece {
         return this.color == other;
     }
 
+    public boolean isMyColor(final Piece other) {
+        return isMyColor(other.color);
+    }
+
     public boolean isEnemyColor(final Color other) {
         return color.isEnemyColor(other);
+    }
+
+    public boolean isEnemyColor(final Piece other) {
+        return isEnemyColor(other.color);
     }
 
     public boolean isBlack() {
@@ -62,13 +81,17 @@ public abstract class Piece {
     }
 
     public boolean isNextEnemy(final Map<Position, Piece> pieces, final Direction direction,
-                                final Position currentPosition) {
+                               final Position currentPosition) {
         return pieces.get(currentPosition.move(direction)).isEnemyColor(color);
     }
 
     private boolean isNextEmpty(final Map<Position, Piece> pieces, final Direction direction,
                                 final Position currentPosition) {
         return !pieces.get(currentPosition.move(direction)).isExist();
+    }
+
+    public Color getColor() {
+        return color;
     }
 
     @Override

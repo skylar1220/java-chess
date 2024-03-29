@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import chess.dto.CommandDto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullSource;
@@ -37,7 +38,20 @@ class CommandTest {
     }
 
     @DisplayName("올바른 입력에 대해 명령어를 생성한다.")
-    @CsvSource(value = {"start, START", "end, END"})
+    @Test
+    void create() {
+        // given
+        CommandDto commandDto = CommandDto.fromStart("start");
+
+        // when
+        Command command = commandDto.command();
+
+        // then
+        assertThat(command).isEqualTo(Command.START);
+    }
+
+    @DisplayName("올바른 입력에 대해 명령어를 생성한다.")
+    @CsvSource(value = {"move a2 a4, MOVE", "end, END"})
     @ParameterizedTest
     void create(final String value, final Command expected) {
         // given
