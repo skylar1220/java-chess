@@ -37,7 +37,7 @@ public class ChessGame {
         return chessBoard.getWinners();
     }
 
-    public boolean isEnd() {
+    public boolean doesKingDead() {
         return chessBoard.doesKingDead();
     }
 

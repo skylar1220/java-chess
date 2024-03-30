@@ -60,4 +60,17 @@ public class ChessGameDaoTest {
                 () -> assertThat(chessBoard).containsEntry(A4, new Queen(Color.WHITE)),
                 () -> assertThat(currentColor).isEqualTo(Color.WHITE));
     }
+
+    @DisplayName("왕이 잡힌후 게임이 종료되면 저장된 게임은 삭제된다.")
+    @Test
+    void deleteGame() {
+        // given
+        final ChessGame rawChessGame = new ChessGame();
+
+        // when
+        chessGameDao.deleteGame(rawChessGame);
+
+        // then
+        assertThat(chessGameDao.findGame()).isNull();
+    }
 }

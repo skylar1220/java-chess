@@ -44,7 +44,7 @@ public class ChessController {
     }
 
     private void playWithCommand(final ChessGame chessGame, Command command) {
-        while (command != Command.END && !chessGame.isEnd()) {
+        while (command != Command.END && !chessGame.doesKingDead()) {
             CommandDto commandDto = CommandDto.from(inputView.readCommand());
             command = commandDto.command();
 
@@ -56,7 +56,11 @@ public class ChessController {
                 outputView.printWinnner(chessGame.getWinners());
             }
         }
-//        chessGameDao.saveGame(chessGame); // 3. end가 입력되면 지금까지 한 게임을 저장한다. 킹 잡은 경우 삭제.
+        if (chessGame.doesKingDead()) {
+            chessGameDao.deleteGame(chessGame);
+            return;
+        }
+        chessGameDao.saveGame(chessGame); // 3. end가 입력되면 지금까지 한 게임을 저장한다. 킹 잡은 경우 삭제.
     }
 
     private void playTurn(final ChessGame chessGame, final CommandDto commandDto) {

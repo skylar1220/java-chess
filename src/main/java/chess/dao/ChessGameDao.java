@@ -68,4 +68,21 @@ public class ChessGameDao {
             throw new RuntimeException(e);
         }
     }
+
+    public void saveGame(final ChessGame chessGame) {
+
+    }
+
+    public void deleteGame(final ChessGame chessGame) {
+        final String query = "DELETE FROM chessGame WHERE chessGame_id = ?";
+        try {
+            final Connection connection = getConnection();
+            final PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, "1");
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
