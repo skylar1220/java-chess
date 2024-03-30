@@ -63,6 +63,10 @@ public enum File {
         return index;
     }
 
+    public String getSymbol() {
+        return symbol;
+    }
+
     @Override
     public String toString() {
         return "" + symbol;

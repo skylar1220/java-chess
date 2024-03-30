@@ -3,6 +3,7 @@ package chess.domain;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
+import chess.entity.SquareEntity;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,11 @@ public class ChessGame {
     ChessGame(final ChessBoard chessBoard) {
         this.chessBoard = chessBoard;
         this.currentColor = Color.WHITE;
+    }
+
+    public ChessGame(final List<SquareEntity> chessBoard, final Color currentColor) {
+        this.chessBoard = ChessBoard.fromEntity(chessBoard);
+        this.currentColor = currentColor;
     }
 
     public void play(final String sourcePosition, final String targetPosition) {

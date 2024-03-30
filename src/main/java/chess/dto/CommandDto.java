@@ -16,6 +16,9 @@ public record CommandDto(Command command, String source, String target) {
         if (input.equals(Command.START.getMessage())) {
             return new CommandDto(Command.START, "", "");
         }
+        if (input.equals(Command.CONTINUE.getMessage())) {
+            return new CommandDto(Command.CONTINUE, "", "");
+        }
         if (input.equals(Command.END.getMessage())) {
             return new CommandDto(Command.END, "", "");
         }

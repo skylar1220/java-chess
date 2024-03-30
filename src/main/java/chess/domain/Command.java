@@ -3,6 +3,7 @@ package chess.domain;
 public enum Command {
 
     START("start"),
+    CONTINUE("continue"),
     END("end"),
     MOVE("move"),
     STATUS("status");

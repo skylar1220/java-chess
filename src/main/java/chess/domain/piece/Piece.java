@@ -15,6 +15,10 @@ public abstract class Piece {
         this.color = color;
     }
 
+    public static Piece of(final PieceType pieceType, final Color color) {
+        return pieceType.getPiece(color);
+    }
+
     public Set<Position> getPositions(final Position sourcePosition, final Map<Position, Piece> pieces) {
         return directions().stream()
                 .flatMap(direction -> getPositionsByDirection(direction, sourcePosition, pieces).stream())

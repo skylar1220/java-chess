@@ -13,9 +13,9 @@ public class OutputView {
 
     public void printStart() {
         System.out.println("> 체스 게임을 시작합니다." + System.lineSeparator()
-                + "> 게임 시작 : " + Command.START + System.lineSeparator()
-                + "> 게임 종료 : " + Command.END + System.lineSeparator()
-                + "> 게임 이동 :  " + Command.MOVE + " source위치 target위치 - 예. " + Command.MOVE + " b2 b3");
+                + "> 게임 시작 : " + Command.START.getMessage() + System.lineSeparator()
+                + "> 게임 종료 : " + Command.END.getMessage() + System.lineSeparator()
+                + "> 게임 이동 :  " + Command.MOVE.getMessage() + " source위치 target위치 - 예. " + Command.MOVE + " b2 b3");
     }
 
     public void printChessBoard(final Map<Position, Piece> pieces) {
@@ -41,7 +41,7 @@ public class OutputView {
                 .map(this::convertColor)
                 .toList();
 
-        System.out.printf("우세 진영은 %s입니다.", String.join(",", winners));
+        System.out.printf("우세 진영은 %s입니다.", String.join(", ", winners));
     }
 
     private String convertColor(final Color color) {
