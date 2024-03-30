@@ -56,7 +56,7 @@ public class ChessController {
                 outputView.printWinnner(chessGame.getWinners());
             }
         }
-        chessGameDao.saveGame(chessGame); // 3. end가 입력되면 지금까지 한 게임을 저장한다. 킹 잡은 경우 삭제.
+//        chessGameDao.saveGame(chessGame); // 3. end가 입력되면 지금까지 한 게임을 저장한다. 킹 잡은 경우 삭제.
     }
 
     private void playTurn(final ChessGame chessGame, final CommandDto commandDto) {

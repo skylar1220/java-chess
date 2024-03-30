@@ -49,4 +49,10 @@ public abstract class Pawn extends Piece {
         }
         return 1;
     }
+
+
+    @Override
+    public PieceType getPieceType() {
+        return PieceType.PAWN;
+    }
 }

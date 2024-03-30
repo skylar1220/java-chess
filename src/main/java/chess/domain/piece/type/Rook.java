@@ -26,6 +26,11 @@ public class Rook extends SlidingPiece {
     }
 
     @Override
+    public PieceType getPieceType() {
+        return PieceType.ROOK;
+    }
+
+    @Override
     public double getPawnScore(final boolean hasSameFilePawn) {
         return 0;
     }

@@ -27,6 +27,11 @@ public class Bishop extends SlidingPiece {
     }
 
     @Override
+    public PieceType getPieceType() {
+        return PieceType.BISHOP;
+    }
+
+    @Override
     public double getPawnScore(final boolean hasSameFilePawn) {
         return 0;
     }

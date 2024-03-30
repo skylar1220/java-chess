@@ -49,4 +49,23 @@ public class ChessGameDao {
         }
         return null;
     }
+
+    public void addGame(final ChessGame chessGame) {
+        final String query = "INSERT INTO chessGame (chessGame_id, currentColor) VALUES (? , ?)";
+        try {
+            final Connection connection = getConnection();
+            final PreparedStatement statement = connection.prepareStatement(query);
+
+            final String chessGame_id = "1";       // TODO: 저장가능 게임이 하나인 상황으로 우선 구현
+
+            statement.setString(1, chessGame_id);
+            statement.setString(2, chessGame.getCurrentColor().name());
+
+            squareDao.addSquares(chessGame.getChessBoard(), chessGame_id);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

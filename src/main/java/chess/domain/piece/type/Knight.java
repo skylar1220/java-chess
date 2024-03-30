@@ -31,6 +31,11 @@ public class Knight extends JumpingPiece {
     }
 
     @Override
+    public PieceType getPieceType() {
+        return PieceType.KNIGHT;
+    }
+
+    @Override
     public double getPawnScore(final boolean hasSameFilePawn) {
         return 0;
     }

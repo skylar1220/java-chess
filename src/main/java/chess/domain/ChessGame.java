@@ -54,4 +54,8 @@ public class ChessGame {
     public Map<Color, Double> getScore() {
         return chessBoard.getScores();
     }
+
+    public Color getCurrentColor() {
+        return currentColor;
+    }
 }

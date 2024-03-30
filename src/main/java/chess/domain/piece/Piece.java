@@ -26,6 +26,7 @@ public abstract class Piece {
     }
 
     public abstract double getScore();
+    public abstract PieceType getPieceType(); // TODO:
 
     public abstract boolean isType(PieceType pieceType);
 

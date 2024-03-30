@@ -31,6 +31,11 @@ public class Queen extends SlidingPiece {
     }
 
     @Override
+    public PieceType getPieceType() {
+        return PieceType.QUEEN;
+    }
+
+    @Override
     public double getPawnScore(final boolean hasSameFilePawn) {
         return 0;
     }
