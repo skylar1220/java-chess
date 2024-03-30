@@ -17,7 +17,7 @@ public class ChessGame {
         this.currentColor = Color.WHITE;
     }
 
-    ChessGame(final ChessBoard chessBoard) {
+    public ChessGame(final ChessBoard chessBoard) {
         this.chessBoard = chessBoard;
         this.currentColor = Color.WHITE;
     }
