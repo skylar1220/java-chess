@@ -1,7 +1,6 @@
 package chess.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import chess.domain.piece.Color;
 import chess.domain.piece.File;
@@ -43,5 +42,16 @@ class SquareDaoTest {
 
         // then
         assertThat(squares).contains(new SquareEntity("a3", PieceType.BISHOP, Color.WHITE));
+    }
+
+    @DisplayName("해당 게임아이디를 가진 보드칸들이 정상적으로 삭제되는지 확인한다.")
+    @Test
+    void deleteSquares() {
+        // given && when
+        squareDao.deleteSquares("1");
+        final List<SquareEntity> squares = squareDao.findSquares("1");
+
+        // then
+        assertThat(squares).isEmpty();
     }
 }

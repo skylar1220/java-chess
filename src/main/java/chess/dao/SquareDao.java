@@ -79,4 +79,19 @@ public class SquareDao {
             throw new RuntimeException(e);
         }
     }
+
+    public void deleteSquares(final String chessGameId) {
+        final String query = "DELETE FROM square WHERE chessGame_id = ?";
+
+        try {
+            final Connection connection = getConnection();
+            final PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.setString(1, chessGameId);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
