@@ -39,34 +39,18 @@
   - [x] 킹 잡은 경우에는 해당 게임을 삭제한다.
 
 ## 리팩토링 목록
-- [x] white 폰이 black 폰을 먹을 때 white폰이 black 폰으로 바뀐다. 단, 블랙이 움직였을 경우에만
-- [x] outputview 수정
-- [x] chessBoardMaker 테스트 분리
-- [x] current -> source로 변경하기
-- [x] direction, multidirection 테스트 새로
-- [x] position 테스트 새로
-- [x] file, rank 테스트 새로
-- [x] command dto 방식 적용
-  - [x] start 안하고 바로 move 오류 수정
-  - [x] 인덴트 줄이기
-- [ ] view에 넘겨줄 때 dto 방식 고려
-- [x] 이동 가능 경로 반환 방식으로 변경
-  - [x] ROOK
-  - [x] BISHOP
-  - [x] NIGHT
-  - [x] PAWN
-  - [x] KING
-  - [x] QUEEN
-- [x] 새로 변경한 piece들 테스트 점검하기
-- [x] 새로 변경한 piece 테스트 점검하기
-- [x] 새로 변경한 chessBoard 테스트 점검하기
-- [x] 새로 변경한 position 테스트 점검하기
-- [x] bishop, rook / king, knight 추상화
-- [x] pawn 역할에 따라 추상화하기
 - [ ] 폰이 아닌 기물들에 getPawnScore() 있는 것 해결하기 
 - [x] start 후에 다시 start 입력시 예외나지 않는 오류 해결하기
-- [ ] 테스트별로 DB 연동되는 것 해결
-- [ ] 프로그램이 중간에 끊겼을 때 데이터 정합성 해
+- [x] 테스트별로 DB 연동되는 것 해결
+- [ ] 프로그램이 중간에 끊겼을 때 데이터 정합성 해결
+- [ ] DB 연결 전반
+- [ ] command로 인한 컨트롤러 복잡 -> 커맨드 패턴 고려 
+- [ ] 게임 여러개 저장할 수 있게 반영
+  - 2개 이상 들어가게 되면 , 일단 포지션이 pk 인것부터 문제
+  - 게임이 2개 이상이 되면, 중간 삽입이 되어서 성능에 문제
+- [ ] db 연결 정보 yml 파일 적용
+- [x] Connection 반납 처리
+- [ ] 스키마 정보 추가
 
 ## 체스 말 이동 규칙
 

@@ -5,7 +5,7 @@ import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
 import chess.domain.piece.Position;
 import chess.domain.piece.type.Empty;
-import chess.entity.SquareEntity;
+import chess.db.entity.SquareEntity;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.LinkedHashMap;

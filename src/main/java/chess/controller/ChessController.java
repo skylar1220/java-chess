@@ -1,6 +1,6 @@
 package chess.controller;
 
-import chess.dao.ChessGameDao;
+import chess.db.dao.ChessGameDao;
 import chess.domain.ChessGame;
 import chess.domain.Command;
 import chess.dto.CommandDto;
@@ -25,16 +25,16 @@ public class ChessController {
         CommandDto commandDto = CommandDto.fromStart(inputView.readCommand());
         Command command = commandDto.command();
 
-        if (command == Command.START) { // 1. 새로운 게임 시작한다고하면,
+        if (command == Command.START) {
             chessGameDao.deleteGame();
             final ChessGame chessGame = new ChessGame();
-            chessGameDao.addGame(chessGame); // 1. 게임이 세팅되면 db에 게임 아이디와 함께 새로운 게임이 생성
+            chessGameDao.addGame(chessGame);
             outputView.printChessBoard(chessGame.getChessBoard());
             playWithCommand(chessGame, command);
             return;
         }
-        if (command == Command.CONTINUE) { // 2. 저장된 게임 계속하기를 선택하면 이전에 있던 거 불러온다.
-            final ChessGame chessGame = chessGameDao.findGame(); // 2. 불러와서 그 게임 진행함
+        if (command == Command.CONTINUE) {
+            final ChessGame chessGame = chessGameDao.findGame();
             outputView.printChessBoard(chessGame.getChessBoard());
             playWithCommand(chessGame, command);
             return;
@@ -60,10 +60,10 @@ public class ChessController {
             }
         }
         if (chessGame.doesKingDead()) {
-            chessGameDao.deleteGame(chessGame);
+            chessGameDao.deleteGame();
             return;
         }
-        chessGameDao.saveGame(chessGame); // 3. end가 입력되면 지금까지 한 게임을 저장한다. 킹 잡은 경우 삭제.
+        chessGameDao.saveGame(chessGame);
     }
 
     private void playTurn(final ChessGame chessGame, final CommandDto commandDto) {

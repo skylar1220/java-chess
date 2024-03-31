@@ -3,7 +3,7 @@ package chess.domain;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
-import chess.entity.SquareEntity;
+import chess.db.entity.SquareEntity;
 import java.util.List;
 import java.util.Map;
 
