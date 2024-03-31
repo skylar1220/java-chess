@@ -69,8 +69,31 @@ public class ChessGameDao {
         }
     }
 
+    /*
+    TODO :
+    2개 이상 들어가게 되면 , 일단 포지션이 pk 인것부터 문제
+    게임이 2개 이상이 되면, 중간 삽입이 되어서 성능에 문제
+     */
     public void saveGame(final ChessGame chessGame) {
+        final String query = "UPDATE chessGame SET currentColor = ? WHERE chessGame_id = ?";
 
+        try {
+            final Connection connection = getConnection();
+            final PreparedStatement statement = connection.prepareStatement(query);
+
+            final String color = chessGame.getCurrentColor().name();
+            final String chessGame_id = "1";
+
+            statement.setString(1, color);
+            statement.setString(2, chessGame_id);
+
+            squareDao.deleteSquares(chessGame_id);
+            squareDao.addSquares(chessGame.getChessBoard(), chessGame_id);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void deleteGame(final ChessGame chessGame) {
@@ -78,6 +101,7 @@ public class ChessGameDao {
         try {
             final Connection connection = getConnection();
             final PreparedStatement statement = connection.prepareStatement(query);
+
             statement.setString(1, "1");
 
             statement.executeUpdate();
