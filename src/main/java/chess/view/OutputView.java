@@ -24,6 +24,22 @@ public class OutputView {
         rows.forEach(this::printChessRow);
     }
 
+    private List<List<String>> sortByBoardOrder(final Map<Position, Piece> pieces) {
+        final List<List<String>> board = new ArrayList<>();
+
+        for (int index = Rank.values().length; index > 0; index--) {
+            Rank rank = Rank.fromNumber(index);
+
+            List<String> row = pieces.entrySet().stream()
+                    .filter(positionPiece -> positionPiece.getKey().isSameRank(rank))
+                    .map(positionPiece -> PieceFormatter.convertToMark(positionPiece.getValue()))
+                    .toList();
+
+            board.add(row);
+        }
+        return board;
+    }
+
     private void printChessRow(final List<String> row) {
         row.forEach(System.out::print);
         System.out.println();
@@ -50,21 +66,5 @@ public class OutputView {
             return "블랙";
         }
         return "화이트";
-    }
-
-    private List<List<String>> sortByBoardOrder(final Map<Position, Piece> pieces) {
-        final List<List<String>> board = new ArrayList<>();
-
-        for (int index = Rank.values().length; index > 0; index--) {
-            Rank rank = Rank.fromNumber(index);
-
-            List<String> row = pieces.entrySet().stream()
-                    .filter(positionPiece -> positionPiece.getKey().isSameRank(rank))
-                    .map(positionPiece -> PieceFormatter.convertToMark(positionPiece.getValue()))
-                    .toList();
-
-            board.add(row);
-        }
-        return board;
     }
 }

@@ -39,10 +39,6 @@ public enum File {
         return fromIndex(index + x);
     }
 
-    public boolean canMove(final int x) {
-        return index + x <= 8 && index + x > 0;
-    }
-
     public File right() {
         return fromIndex(this.index + 1);
     }
@@ -55,12 +51,12 @@ public enum File {
         return Math.abs(this.index - other.index);
     }
 
-    public boolean isBigger(final File other) {
-        return this.index > other.index;
+    public boolean canMove(final int x) {
+        return index + x <= 8 && index + x > 0;
     }
 
-    public int getIndex() {
-        return index;
+    public boolean isBigger(final File other) {
+        return this.index > other.index;
     }
 
     public String getSymbol() {

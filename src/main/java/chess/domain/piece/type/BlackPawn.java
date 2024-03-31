@@ -15,7 +15,8 @@ import java.util.Set;
 
 public class BlackPawn extends Pawn {
     public BlackPawn() {
-        super(Color.BLACK);    }
+        super(Color.BLACK);
+    }
 
     @Override
     public Set<Position> getPositions(final Position sourcePosition, final Map<Position, Piece> pieces) {

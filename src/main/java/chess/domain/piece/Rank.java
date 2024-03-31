@@ -34,20 +34,20 @@ public enum Rank {
         return fromNumber(index + y);
     }
 
-    public boolean canMove(final int y) {
-        return index + y <= 8 && index + y > 0;
-    }
-
     public Rank up() {
         return fromNumber(this.index + 1);
     }
 
-    public int getDistance(final Rank other) {
-        return Math.abs(this.index - other.index);
+    public boolean canMove(final int y) {
+        return index + y <= 8 && index + y > 0;
     }
 
     public boolean isBigger(final Rank other) {
         return this.index > other.index;
+    }
+
+    public int getDistance(final Rank other) {
+        return Math.abs(this.index - other.index);
     }
 
     public int getIndex() {

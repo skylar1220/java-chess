@@ -31,13 +31,13 @@ public class Empty extends Piece {
     }
 
     @Override
-    public PieceType getPieceType() {
-        return PieceType.EMPTY;
+    public double getPawnScore(final boolean hasSameFilePawn) {
+        return 0;
     }
 
     @Override
-    public double getPawnScore(final boolean hasSameFilePawn) {
-        return 0;
+    public PieceType getPieceType() {
+        return PieceType.EMPTY;
     }
 
     @Override

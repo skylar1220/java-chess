@@ -19,14 +19,9 @@ public abstract class Piece {
         return pieceType.getPiece(color);
     }
 
-    public Set<Position> getPositions(final Position sourcePosition, final Map<Position, Piece> pieces) {
-        return directions().stream()
-                .flatMap(direction -> getPositionsByDirection(direction, sourcePosition, pieces).stream())
-                .collect(Collectors.toSet());
-    }
-
     public abstract double getScore();
-    public abstract PieceType getPieceType(); // TODO:
+
+    public abstract PieceType getPieceType();
 
     public abstract boolean isType(PieceType pieceType);
 
@@ -42,9 +37,15 @@ public abstract class Piece {
 
     protected abstract double getPawnScore(final boolean hasSameFilePawn);
 
+    public Set<Position> getPositions(final Position sourcePosition, final Map<Position, Piece> pieces) {
+        return directions().stream()
+                .flatMap(direction -> getPositionsByDirection(direction, sourcePosition, pieces).stream())
+                .collect(Collectors.toSet());
+    }
+
     public double getScore(final boolean hasSameFilePawn) {
         if (isType(PieceType.PAWN)) {
-           return getPawnScore(hasSameFilePawn);
+            return getPawnScore(hasSameFilePawn);
         }
         return getScore();
     }
@@ -67,10 +68,6 @@ public abstract class Piece {
 
     public boolean isEnemyColor(final Color other) {
         return color.isEnemyColor(other);
-    }
-
-    public boolean isEnemyColor(final Piece other) {
-        return isEnemyColor(other.color);
     }
 
     public boolean isBlack() {

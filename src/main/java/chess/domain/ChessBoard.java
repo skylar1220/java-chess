@@ -33,11 +33,6 @@ public class ChessBoard {
         return new ChessBoard(pieces);
     }
 
-    public boolean isPieceColor(final String sourcePosition, final Color color) {
-        final Piece sourcePiece = findPieceBy(Position.from(sourcePosition));
-        return sourcePiece.isMyColor(color);
-    }
-
     public void tryMove(final String sourcePosition, final String targetPosition) {
         tryMove(Position.from(sourcePosition), Position.from(targetPosition));
     }
@@ -60,6 +55,11 @@ public class ChessBoard {
             return pieces.get(input);
         }
         throw new IllegalArgumentException("[ERROR] 해당 위치에 기물이 존재하지 않습니다.");
+    }
+
+    public boolean isPieceColor(final String sourcePosition, final Color color) {
+        final Piece sourcePiece = findPieceBy(Position.from(sourcePosition));
+        return sourcePiece.isMyColor(color);
     }
 
     public boolean doesKingDead() {

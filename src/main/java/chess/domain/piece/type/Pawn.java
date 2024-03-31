@@ -19,10 +19,7 @@ public abstract class Pawn extends Piece {
         super(color);
     }
 
-    @Override
-    protected Set<Direction> directions() {
-        return Set.of(UP, UP_UP, RIGHT_UP, LEFT_UP);
-    }
+    public abstract Set<Position> getPositions(final Position sourcePosition, final Map<Position, Piece> pieces);
 
     @Override
     protected Set<Position> getPositionsByDirection(final Direction direction, final Position sourcePosition,
@@ -30,11 +27,9 @@ public abstract class Pawn extends Piece {
         return getPositions(sourcePosition, pieces);
     }
 
-    public abstract Set<Position> getPositions(final Position sourcePosition, final Map<Position, Piece> pieces);
-
     @Override
-    public boolean isType(final PieceType pieceType) {
-        return pieceType == PieceType.PAWN;
+    protected Set<Direction> directions() {
+        return Set.of(UP, UP_UP, RIGHT_UP, LEFT_UP);
     }
 
     @Override
@@ -50,9 +45,13 @@ public abstract class Pawn extends Piece {
         return 1;
     }
 
-
     @Override
     public PieceType getPieceType() {
         return PieceType.PAWN;
+    }
+
+    @Override
+    public boolean isType(final PieceType pieceType) {
+        return pieceType == PieceType.PAWN;
     }
 }

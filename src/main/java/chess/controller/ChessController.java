@@ -69,6 +69,5 @@ public class ChessController {
     private void playTurn(final ChessGame chessGame, final CommandDto commandDto) {
         chessGame.play(commandDto.source(), commandDto.target());
         outputView.printChessBoard(chessGame.getChessBoard());
-
     }
 }
