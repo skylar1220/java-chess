@@ -1,5 +1,6 @@
 package chess.db.dao;
 
+import chess.db.entity.ChessGameEntity;
 import chess.domain.ChessGame;
 import chess.domain.piece.Color;
 import chess.db.entity.SquareEntity;
@@ -13,7 +14,7 @@ public class ChessGameDao {
 
     public final SquareDao squareDao = new SquareDao();
 
-    public ChessGame findGame() {
+    public ChessGameEntity findGame() {
         try(final Connection connection = ChessDbConnector.getConnection();
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM chessGame");) {
 
@@ -22,7 +23,7 @@ public class ChessGameDao {
             if (resultSet.next()) {
                 Color currentColor = Color.valueOf(resultSet.getString("currentColor"));
                 List<SquareEntity> chessBoard = squareDao.findSquares();
-                return new ChessGame(chessBoard, currentColor);
+                return new ChessGameEntity(chessBoard, currentColor);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -47,6 +48,18 @@ public class ChessGameDao {
         }
     }
 
+    public void deleteGame() {
+        final String query = "DELETE FROM chessGame WHERE chessGame_id = 1";
+        try {
+            final Connection connection = ChessDbConnector.getConnection();
+            final PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void saveGame(final ChessGame chessGame) {
         final String query = "UPDATE chessGame SET currentColor = ? WHERE chessGame_id = 1";
 
@@ -59,18 +72,6 @@ public class ChessGameDao {
 
             squareDao.deleteSquares();
             squareDao.addSquares(chessGame.getChessBoard());
-
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void deleteGame() {
-        final String query = "DELETE FROM chessGame WHERE chessGame_id = 1";
-        try {
-            final Connection connection = ChessDbConnector.getConnection();
-            final PreparedStatement statement = connection.prepareStatement(query);
 
             statement.executeUpdate();
         } catch (SQLException e) {

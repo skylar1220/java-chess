@@ -24,7 +24,7 @@ class ChessBoardTest {
         final Position targetPosition = new Position(File.A, Rank.FOUR);
 
         // when && then
-        assertThatThrownBy(() -> chessBoard.move(sourcePosition, targetPosition))
+        assertThatThrownBy(() -> chessBoard.tryMove(sourcePosition, targetPosition))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -36,7 +36,7 @@ class ChessBoardTest {
         final Position targetPosition = new Position(File.B, Rank.TWO);
 
         // when && then
-        assertThatThrownBy(() -> chessBoard.move(sourcePosition, targetPosition))
+        assertThatThrownBy(() -> chessBoard.tryMove(sourcePosition, targetPosition))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -48,7 +48,7 @@ class ChessBoardTest {
         final Position targetPosition = new Position(File.C, Rank.TWO);
 
         // when && then
-        assertThatThrownBy(() -> chessBoard.move(sourcePosition, targetPosition))
+        assertThatThrownBy(() -> chessBoard.tryMove(sourcePosition, targetPosition))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -60,7 +60,7 @@ class ChessBoardTest {
         final Position targetPosition = new Position(File.E, Rank.TWO);
 
         // when && then
-        assertThatThrownBy(() -> chessBoard.move(sourcePosition, targetPosition))
+        assertThatThrownBy(() -> chessBoard.tryMove(sourcePosition, targetPosition))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -72,7 +72,7 @@ class ChessBoardTest {
         final Position targetPosition = new Position(File.D, Rank.THREE);
 
         // when && then
-        assertThatThrownBy(() -> chessBoard.move(sourcePosition, targetPosition))
+        assertThatThrownBy(() -> chessBoard.tryMove(sourcePosition, targetPosition))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -84,7 +84,7 @@ class ChessBoardTest {
         final Position targetPosition = new Position(File.A, Rank.FIVE);
 
         // when && then
-        assertThatThrownBy(() -> chessBoard.move(sourcePosition, targetPosition))
+        assertThatThrownBy(() -> chessBoard.tryMove(sourcePosition, targetPosition))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -97,7 +97,7 @@ class ChessBoardTest {
         final Piece sourcePiece = chessBoard.findPieceBy(sourcePosition);
 
         // when
-        chessBoard.move(sourcePosition, targetPosition);
+        chessBoard.tryMove(sourcePosition, targetPosition);
 
         // then
         assertThat(chessBoard.getPieces().get(targetPosition)).isEqualTo(sourcePiece);
@@ -111,7 +111,7 @@ class ChessBoardTest {
         final Position targetPosition = new Position(File.A, Rank.FIVE);
 
         // when && then
-        assertThatThrownBy(() -> chessBoard.move(sourcePosition, targetPosition))
+        assertThatThrownBy(() -> chessBoard.tryMove(sourcePosition, targetPosition))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -122,15 +122,15 @@ class ChessBoardTest {
         Position sourcePosition = new Position(File.B, Rank.ONE);
         final Piece originPiece = chessBoard.findPieceBy(sourcePosition);
         Position targetPosition = new Position(File.C, Rank.THREE);
-        chessBoard.move(sourcePosition, targetPosition);
+        chessBoard.tryMove(sourcePosition, targetPosition);
 
         sourcePosition = targetPosition;
         targetPosition = new Position(File.D, Rank.FIVE);
-        chessBoard.move(sourcePosition, targetPosition);
+        chessBoard.tryMove(sourcePosition, targetPosition);
 
         sourcePosition = targetPosition;
         targetPosition = new Position(File.E, Rank.SEVEN);
-        chessBoard.move(sourcePosition, targetPosition);
+        chessBoard.tryMove(sourcePosition, targetPosition);
 
         // when && then
         final Piece sourcePiece = chessBoard.findPieceBy(targetPosition);
@@ -145,7 +145,7 @@ class ChessBoardTest {
         final Position targetPosition = new Position(File.C, Rank.THREE);
 
         // when && then
-        assertThatThrownBy(() -> chessBoard.move(sourcePosition, targetPosition))
+        assertThatThrownBy(() -> chessBoard.tryMove(sourcePosition, targetPosition))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -166,7 +166,7 @@ class ChessBoardTest {
         final ChessBoard newChessBoard = new ChessBoard(new HashMap<>(GAMING_PIECES));
 
         // when
-        newChessBoard.move("e5", "e8");
+        newChessBoard.tryMove("e5", "e8");
         final boolean doesKingDead = newChessBoard.doesKingDead();
 
         // then
@@ -190,7 +190,7 @@ class ChessBoardTest {
         final ChessBoard chessBoard = new ChessBoard(new HashMap<>(GAMING_PIECES));
 
         // when
-        chessBoard.move("e5", "e6");
+        chessBoard.tryMove("e5", "e6");
         final boolean doesKingDead = chessBoard.doesKingDead();
 
         // then

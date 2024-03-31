@@ -34,7 +34,7 @@ public class ChessController {
             return;
         }
         if (command == Command.CONTINUE) {
-            final ChessGame chessGame = chessGameDao.findGame();
+            final ChessGame chessGame = new ChessGame(chessGameDao.findGame());
             outputView.printChessBoard(chessGame.getChessBoard());
             playWithCommand(chessGame, command);
             return;
@@ -48,7 +48,7 @@ public class ChessController {
 
     private void playWithCommand(final ChessGame chessGame, Command command) {
         while (command != Command.END && !chessGame.doesKingDead()) {
-            CommandDto commandDto = CommandDto.from(inputView.readCommand());
+            final CommandDto commandDto = CommandDto.from(inputView.readCommand());
             command = commandDto.command();
 
             if (command == Command.MOVE) {

@@ -38,11 +38,11 @@ public class ChessBoard {
         return sourcePiece.isMyColor(color);
     }
 
-    public void move(final String sourcePosition, final String targetPosition) {
-        move(Position.from(sourcePosition), Position.from(targetPosition));
+    public void tryMove(final String sourcePosition, final String targetPosition) {
+        tryMove(Position.from(sourcePosition), Position.from(targetPosition));
     }
 
-    public void move(final Position sourcePosition, final Position targetPosition) {
+    public void tryMove(final Position sourcePosition, final Position targetPosition) {
         final Piece sourcePiece = findPieceBy(sourcePosition);
 
         Set<Position> positions = sourcePiece.getPositions(sourcePosition, pieces);
@@ -69,6 +69,28 @@ public class ChessBoard {
         return kingCount != 2;
     }
 
+    public Map<Color, Double> getScores() {
+        Map<Color, Double> scores = new EnumMap<>(Color.class);
+        scores.put(Color.WHITE, calculateScore(Color.WHITE));
+        scores.put(Color.BLACK, calculateScore(Color.BLACK));
+        return scores;
+    }
+
+    public List<Color> getWinners() {
+        List<Color> winners = new ArrayList<>();
+
+        Double blackScore = getScores().get(Color.BLACK);
+        Double whiteScore = getScores().get(Color.WHITE);
+
+        if (blackScore >= whiteScore) {
+            winners.add(Color.BLACK);
+        }
+        if (blackScore <= whiteScore) {
+            winners.add(Color.WHITE);
+        }
+        return winners;
+    }
+
     private boolean isPieceExist(final Position input) {
         return !pieces.get(input).isClass(Empty.class);
     }
@@ -78,13 +100,6 @@ public class ChessBoard {
 
         pieces.put(targetPosition, sourcePiece);
         pieces.put(sourcePosition, new Empty());
-    }
-
-    public Map<Color, Double> getScores() {
-        Map<Color, Double> scores = new EnumMap<>(Color.class);
-        scores.put(Color.WHITE, calculateScore(Color.WHITE));
-        scores.put(Color.BLACK, calculateScore(Color.BLACK));
-        return scores;
     }
 
     private double calculateScore(final Color color) {
@@ -102,21 +117,6 @@ public class ChessBoard {
                         && positionPiece.getValue().isMyColor(piece))
                 .count();
         return count > 1;
-    }
-
-    public List<Color> getWinners() {
-        List<Color> winners = new ArrayList<>();
-
-        Double blackScore = getScores().get(Color.BLACK);
-        Double whiteScore = getScores().get(Color.WHITE);
-
-        if (blackScore >= whiteScore) {
-            winners.add(Color.BLACK);
-        }
-        if (blackScore <= whiteScore) {
-            winners.add(Color.WHITE);
-        }
-        return winners;
     }
 
     public Map<Position, Piece> getPieces() {

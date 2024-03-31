@@ -1,9 +1,9 @@
 package chess.domain;
 
+import chess.db.entity.ChessGameEntity;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
-import chess.db.entity.SquareEntity;
 import java.util.List;
 import java.util.Map;
 
@@ -22,23 +22,23 @@ public class ChessGame {
         this.currentColor = Color.WHITE;
     }
 
-    public ChessGame(final List<SquareEntity> chessBoard, final Color currentColor) {
-        this.chessBoard = ChessBoard.fromEntity(chessBoard);
-        this.currentColor = currentColor;
+    public ChessGame(final ChessGameEntity chessGameEntity) {
+        this.chessBoard = ChessBoard.fromEntity(chessGameEntity.chessBoard());
+        this.currentColor = chessGameEntity.currentColor();
     }
 
     public void play(final String sourcePosition, final String targetPosition) {
         validateTurn(sourcePosition);
-        chessBoard.move(sourcePosition, targetPosition);
+        chessBoard.tryMove(sourcePosition, targetPosition);
         currentColor = currentColor.opposite();
-    }
-
-    public List<Color> getWinners() {
-        return chessBoard.getWinners();
     }
 
     public boolean doesKingDead() {
         return chessBoard.doesKingDead();
+    }
+
+    public List<Color> getWinners() {
+        return chessBoard.getWinners();
     }
 
     private void validateTurn(final String sourcePosition) {
