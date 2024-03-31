@@ -13,7 +13,8 @@ public class OutputView {
 
     public void printStart() {
         System.out.println("> 체스 게임을 시작합니다." + System.lineSeparator()
-                + "> 게임 시작 : " + Command.START.getMessage() + System.lineSeparator()
+                + "> 새로운 게임 시작 : " + Command.START.getMessage() + System.lineSeparator()
+                + "> 저장된 게임 시작 : " + Command.CONTINUE.getMessage() + System.lineSeparator()
                 + "> 게임 종료 : " + Command.END.getMessage() + System.lineSeparator()
                 + "> 게임 이동 :  " + Command.MOVE.getMessage() + " source위치 target위치 - 예. " + Command.MOVE + " b2 b3");
     }

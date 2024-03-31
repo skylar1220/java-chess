@@ -37,7 +37,7 @@ public class SquareDao {
         try {
             final Connection connection = getConnection();
             final PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM square WHERE chessGame_id = ?");
+                    "SELECT * FROM square WHERE chessGame_id = ? ORDER BY position");
             statement.setString(1, chessGameId);
 
             final ResultSet resultSet = statement.executeQuery();

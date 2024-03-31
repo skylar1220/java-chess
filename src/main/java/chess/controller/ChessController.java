@@ -26,6 +26,7 @@ public class ChessController {
         Command command = commandDto.command();
 
         if (command == Command.START) { // 1. 새로운 게임 시작한다고하면,
+            chessGameDao.deleteGame();
             final ChessGame chessGame = new ChessGame();
             chessGameDao.addGame(chessGame); // 1. 게임이 세팅되면 db에 게임 아이디와 함께 새로운 게임이 생성
             outputView.printChessBoard(chessGame.getChessBoard());
@@ -34,7 +35,9 @@ public class ChessController {
         }
         if (command == Command.CONTINUE) { // 2. 저장된 게임 계속하기를 선택하면 이전에 있던 거 불러온다.
             final ChessGame chessGame = chessGameDao.findGame(); // 2. 불러와서 그 게임 진행함
+            outputView.printChessBoard(chessGame.getChessBoard());
             playWithCommand(chessGame, command);
+            return;
         }
         if (command == Command.END) {
             return;

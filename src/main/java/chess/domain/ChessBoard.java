@@ -8,6 +8,7 @@ import chess.domain.piece.type.Empty;
 import chess.entity.SquareEntity;
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,7 +26,9 @@ public class ChessBoard {
         Map<Position, Piece> pieces = chessBoard.stream()
                 .collect(Collectors.toMap(
                         squareEntity -> Position.from(squareEntity.position()),
-                        squareEntity -> Piece.of(squareEntity.pieceType(), squareEntity.color())
+                        squareEntity -> Piece.of(squareEntity.pieceType(), squareEntity.color()),
+                        (o1, o2) -> o1,
+                        LinkedHashMap::new
                 ));
         return new ChessBoard(pieces);
     }
