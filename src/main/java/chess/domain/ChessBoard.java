@@ -91,15 +91,15 @@ public class ChessBoard {
         return winners;
     }
 
-    private boolean isPieceExist(final Position input) {
-        return !pieces.get(input).isClass(Empty.class);
-    }
-
     private void movePiece(final Position sourcePosition, final Position targetPosition) {
         Piece sourcePiece = pieces.get(sourcePosition);
 
         pieces.put(targetPosition, sourcePiece);
         pieces.put(sourcePosition, new Empty());
+    }
+
+    private boolean isPieceExist(final Position input) {
+        return !pieces.get(input).isClass(Empty.class);
     }
 
     private double calculateScore(final Color color) {
