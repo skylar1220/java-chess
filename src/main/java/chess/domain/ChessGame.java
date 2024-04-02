@@ -1,6 +1,6 @@
 package chess.domain;
 
-import chess.db.entity.ChessGameEntity;
+import chess.dto.ChessGameDto;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Position;

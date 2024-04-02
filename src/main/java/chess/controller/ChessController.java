@@ -1,6 +1,6 @@
 package chess.controller;
 
-import chess.db.dao.ChessGameDao;
+import chess.dao.ChessGameDao;
 import chess.domain.ChessGame;
 import chess.domain.Command;
 import chess.dto.CommandDto;

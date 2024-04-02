@@ -1,9 +1,9 @@
-package chess.db.dao;
+package chess.dao;
 
-import chess.db.entity.ChessGameEntity;
+import chess.dto.ChessGameDto;
 import chess.domain.ChessGame;
 import chess.domain.piece.Color;
-import chess.db.entity.SquareEntity;
+import chess.dto.SquareDto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +14,7 @@ public class ChessGameDao {
 
     public final SquareDao squareDao = new SquareDao();
 
-    public ChessGameEntity findGame() {
+    public ChessGameDto findGame() {
         try(final Connection connection = ChessDbConnector.getConnection();
             final PreparedStatement statement = connection.prepareStatement("SELECT * FROM chessGame");) {
 
@@ -22,8 +22,8 @@ public class ChessGameDao {
 
             if (resultSet.next()) {
                 Color currentColor = Color.valueOf(resultSet.getString("currentColor"));
-                List<SquareEntity> chessBoard = squareDao.findSquares();
-                return new ChessGameEntity(chessBoard, currentColor);
+                List<SquareDto> chessBoard = squareDao.findSquares();
+                return new ChessGameDto(chessBoard, currentColor);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

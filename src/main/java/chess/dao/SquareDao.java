@@ -1,10 +1,10 @@
-package chess.db.dao;
+package chess.dao;
 
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
 import chess.domain.piece.Position;
-import chess.db.entity.SquareEntity;
+import chess.dto.SquareDto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,25 +12,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class SquareDao {
 
-    public List<SquareEntity> findSquares() {
+    public List<SquareDto> findSquares() {
         final String query = "SELECT * FROM square WHERE chessGame_id = 1 ORDER BY position";
 
         try (final Connection connection = ChessDbConnector.getConnection();
              final PreparedStatement statement = connection.prepareStatement(query)) {
 
             final ResultSet resultSet = statement.executeQuery();
-            final List<SquareEntity> squareEntities = new ArrayList<>();
+            final List<SquareDto> squareEntities = new ArrayList<>();
 
             while (resultSet.next()) {
                 String position = resultSet.getString("position");
                 PieceType pieceType = PieceType.valueOf(resultSet.getString("pieceType"));
                 Color color = Color.valueOf(resultSet.getString("color"));
 
-                squareEntities.add(new SquareEntity(position, pieceType, color));
+                squareEntities.add(new SquareDto(position, pieceType, color));
             }
             return squareEntities;
         } catch (SQLException e) {
@@ -44,10 +43,10 @@ public class SquareDao {
         try (final Connection connection = ChessDbConnector.getConnection();
              final PreparedStatement statement = connection.prepareStatement(query)) {
 
-            for (SquareEntity squareEntity : convertToEntities(chessBoard)) {
-                statement.setString(1, squareEntity.position());
-                statement.setString(2, squareEntity.pieceType().name());
-                statement.setString(3, squareEntity.color().name());
+            for (SquareDto squareDto : convertToEntities(chessBoard)) {
+                statement.setString(1, squareDto.position());
+                statement.setString(2, squareDto.pieceType().name());
+                statement.setString(3, squareDto.color().name());
 
                 statement.executeUpdate();
             }
