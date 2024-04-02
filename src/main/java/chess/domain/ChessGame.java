@@ -22,9 +22,9 @@ public class ChessGame {
         this.currentColor = Color.WHITE;
     }
 
-    public ChessGame(final ChessGameEntity chessGameEntity) {
-        this.chessBoard = ChessBoard.fromEntity(chessGameEntity.chessBoard());
-        this.currentColor = chessGameEntity.currentColor();
+    public ChessGame(final ChessGameDto chessGameDto) {
+        this.chessBoard = chessGameDto.getChessBoard();
+        this.currentColor = chessGameDto.getCurrentColor();
     }
 
     public void play(final String sourcePosition, final String targetPosition) {

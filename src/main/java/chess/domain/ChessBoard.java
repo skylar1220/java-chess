@@ -22,17 +22,6 @@ public class ChessBoard {
         this.pieces = pieces;
     }
 
-    public static ChessBoard fromEntity(final List<SquareEntity> chessBoard) {
-        Map<Position, Piece> pieces = chessBoard.stream()
-                .collect(Collectors.toMap(
-                        squareEntity -> Position.from(squareEntity.position()),
-                        squareEntity -> Piece.of(squareEntity.pieceType(), squareEntity.color()),
-                        (o1, o2) -> o1,
-                        LinkedHashMap::new
-                ));
-        return new ChessBoard(pieces);
-    }
-
     public void tryMove(final String sourcePosition, final String targetPosition) {
         tryMove(Position.from(sourcePosition), Position.from(targetPosition));
     }

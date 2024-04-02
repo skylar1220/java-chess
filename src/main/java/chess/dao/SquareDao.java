@@ -66,19 +66,17 @@ public class SquareDao {
         }
     }
 
-    private List<SquareEntity> convertToEntities(final Map<Position, Piece> chessBoard) {
-        final List<SquareEntity> squareEntities = new ArrayList<>();
+    private List<SquareDto> convertToEntities(final Map<Position, Piece> chessBoard) {
+        final List<SquareDto> squareEntities = new ArrayList<>();
 
-        for (Entry<Position, Piece> positionPiece : chessBoard.entrySet()) {
-            final Position rawPosition = positionPiece.getKey();
-            final Piece rawPiece = positionPiece.getValue();
+        chessBoard.forEach((rawPosition, rawPiece) -> {
+                    final String position = rawPosition.getFile() + rawPosition.getRank();
+                    final PieceType pieceType = rawPiece.getPieceType();
+                    final Color color = rawPiece.getColor();
 
-            final String position = rawPosition.getFile().getSymbol() + rawPosition.getRank().getIndex();
-            final PieceType pieceType = rawPiece.getPieceType();
-            final Color color = rawPiece.getColor();
-
-            squareEntities.add(new SquareEntity(position, pieceType, color));
-        }
+                    squareEntities.add(new SquareDto(position, pieceType, color));
+                }
+        );
         return squareEntities;
     }
 }

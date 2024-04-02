@@ -55,12 +55,12 @@ public class Position {
         return file == otherPosition.file;
     }
 
-    public File getFile() {
-        return file;
+    public String getFile() {
+        return file.getSymbol();
     }
 
-    public Rank getRank() {
-        return rank;
+    public int getRank() {
+        return rank.getIndex();
     }
 
     @Override
