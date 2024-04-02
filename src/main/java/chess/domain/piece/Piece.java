@@ -15,11 +15,9 @@ public abstract class Piece {
         this.color = color;
     }
 
-    public static Piece of(final PieceType pieceType, final Color color) {
-        return pieceType.getPiece(color);
-    }
-
     public abstract double getScore();
+
+    public abstract double getPawnScore(final boolean hasSameFilePawn);
 
     public abstract PieceType getPieceType();
 
@@ -35,7 +33,6 @@ public abstract class Piece {
         return isNextEnemy(pieces, direction, sourcePostition) || isNextEmpty(pieces, direction, sourcePostition);
     }
 
-    protected abstract double getPawnScore(final boolean hasSameFilePawn);
 
     public Set<Position> getPositions(final Position sourcePosition, final Map<Position, Piece> pieces) {
         return directions().stream()
@@ -45,7 +42,14 @@ public abstract class Piece {
 
     public double getScore(final boolean hasSameFilePawn) {
         if (isType(PieceType.PAWN)) {
-            return getPawnScore(hasSameFilePawn);
+            return getPanwnScore(hasSameFilePawn);
+        }
+        return getScore();
+    }
+
+    public double getPanwnScore(final boolean hasSameFilePawn) {
+        if (hasSameFilePawn) {
+            return 0.5;
         }
         return getScore();
     }

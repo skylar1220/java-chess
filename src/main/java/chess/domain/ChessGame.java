@@ -23,8 +23,8 @@ public class ChessGame {
     }
 
     public ChessGame(final ChessGameDto chessGameDto) {
-        this.chessBoard = chessGameDto.getChessBoard();
-        this.currentColor = chessGameDto.getCurrentColor();
+        this.chessBoard = new ChessBoard(chessGameDto.chessBoard());
+        this.currentColor = chessGameDto.currentColor();
     }
 
     public void play(final String sourcePosition, final String targetPosition) {

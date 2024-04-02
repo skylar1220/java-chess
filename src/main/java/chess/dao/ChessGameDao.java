@@ -23,7 +23,7 @@ public class ChessGameDao {
             if (resultSet.next()) {
                 Color currentColor = Color.valueOf(resultSet.getString("currentColor"));
                 List<SquareDto> chessBoard = squareDao.findSquares();
-                return new ChessGameDto(chessBoard, currentColor);
+                return ChessGameDto.of(chessBoard, currentColor);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

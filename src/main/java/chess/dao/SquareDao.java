@@ -20,10 +20,9 @@ public class SquareDao {
 
         try (final Connection connection = ChessDbConnector.getConnection();
              final PreparedStatement statement = connection.prepareStatement(query)) {
-
             final ResultSet resultSet = statement.executeQuery();
-            final List<SquareDto> squareEntities = new ArrayList<>();
 
+            final List<SquareDto> squareEntities = new ArrayList<>();
             while (resultSet.next()) {
                 String position = resultSet.getString("position");
                 PieceType pieceType = PieceType.valueOf(resultSet.getString("pieceType"));
