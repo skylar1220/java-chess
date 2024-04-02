@@ -42,6 +42,6 @@ public class Empty extends Piece {
 
     @Override
     public boolean isType(final PieceType pieceType) {
-        return false;
+        return pieceType == PieceType.EMPTY;
     }
 }

@@ -2,48 +2,38 @@ package chess.view;
 
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
+import java.util.Arrays;
 
-public class PieceFormatter {
-    private PieceFormatter() {
+public enum PieceFormatter {
+    BISHOP(PieceType.BISHOP, "B"),
+    KING(PieceType.KING, "K"),
+    KNIGHT(PieceType.KNIGHT, "N"),
+    PAWN(PieceType.PAWN, "P"),
+    QUEEN(PieceType.QUEEN, "Q"),
+    ROOK(PieceType.ROOK, "R"),
+    EMPTY(PieceType.EMPTY, ".");
+
+    private final PieceType pieceType;
+    private final String format;
+
+    private PieceFormatter(final PieceType pieceType, final String format) {
+        this.pieceType = pieceType;
+        this.format = format;
     }
 
-    public static String convertToMark(final Piece piece) {
-        if (piece.isType(PieceType.BISHOP) && piece.isBlack()) {
-            return "B";
+    public static String from(final Piece piece) {
+        return Arrays.stream(values())
+                .filter(pieceFormat -> piece.isType(pieceFormat.pieceType))
+                .findFirst()
+                .map(pieceFormat -> pieceFormat.getColorFormat(piece))
+                .orElseThrow(() -> new IllegalArgumentException("유효하지 않은 기물입니다."));
+
+    }
+
+    private String getColorFormat(final Piece piece) {
+        if (piece.isBlack()) {
+            return format;
         }
-        if (piece.isType(PieceType.BISHOP) && piece.isWhite()) {
-            return "b";
-        }
-        if (piece.isType(PieceType.KING) && piece.isBlack()) {
-            return "K";
-        }
-        if (piece.isType(PieceType.KING) && piece.isWhite()) {
-            return "k";
-        }
-        if (piece.isType(PieceType.KNIGHT) && piece.isBlack()) {
-            return "N";
-        }
-        if (piece.isType(PieceType.KNIGHT) && piece.isWhite()) {
-            return "n";
-        }
-        if (piece.isType(PieceType.PAWN) && piece.isBlack()) {
-            return "P";
-        }
-        if (piece.isType(PieceType.PAWN) && piece.isWhite()) {
-            return "p";
-        }
-        if (piece.isType(PieceType.QUEEN) && piece.isBlack()) {
-            return "Q";
-        }
-        if (piece.isType(PieceType.QUEEN) && piece.isWhite()) {
-            return "q";
-        }
-        if (piece.isType(PieceType.ROOK) && piece.isBlack()) {
-            return "R";
-        }
-        if (piece.isType(PieceType.ROOK) && piece.isWhite()) {
-            return "r";
-        }
-        return ".";
+        return format.toLowerCase();
     }
 }

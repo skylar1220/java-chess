@@ -32,7 +32,7 @@ public class OutputView {
 
             List<String> row = pieces.entrySet().stream()
                     .filter(positionPiece -> positionPiece.getKey().isSameRank(rank))
-                    .map(positionPiece -> PieceFormatter.convertToMark(positionPiece.getValue()))
+                    .map(positionPiece -> PieceFormatter.from(positionPiece.getValue()))
                     .toList();
 
             board.add(row);

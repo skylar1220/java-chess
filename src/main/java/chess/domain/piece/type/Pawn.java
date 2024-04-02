@@ -34,11 +34,11 @@ public abstract class Pawn extends Piece {
 
     @Override
     public double getScore() {
-        return 0;
+        return 1;
     }
 
     @Override
-    protected double getPawnScore(final boolean hasSameFilePawn) {
+    public double getPawnScore(final boolean hasSameFilePawn) {
         if (hasSameFilePawn) {
             return 0.5;
         }
