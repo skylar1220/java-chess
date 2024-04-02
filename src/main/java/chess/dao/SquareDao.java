@@ -42,8 +42,9 @@ public class SquareDao {
 
         try (final Connection connection = ChessDbConnector.getConnection();
              final PreparedStatement statement = connection.prepareStatement(query)) {
+            List<SquareDto> squareDtos = SquareDto.toSquareDtos(chessBoard);
 
-            for (SquareDto squareDto : convertToEntities(chessBoard)) {
+            for (SquareDto squareDto : squareDtos) {
                 statement.setString(1, squareDto.position());
                 statement.setString(2, squareDto.pieceType().name());
                 statement.setString(3, squareDto.color().name());
@@ -64,19 +65,5 @@ public class SquareDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private List<SquareDto> convertToEntities(final Map<Position, Piece> chessBoard) {
-        final List<SquareDto> squareEntities = new ArrayList<>();
-
-        chessBoard.forEach((rawPosition, rawPiece) -> {
-                    final String position = rawPosition.getFile() + rawPosition.getRank();
-                    final PieceType pieceType = rawPiece.getPieceType();
-                    final Color color = rawPiece.getColor();
-
-                    squareEntities.add(new SquareDto(position, pieceType, color));
-                }
-        );
-        return squareEntities;
     }
 }
