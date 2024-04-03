@@ -1,6 +1,5 @@
 package chess.domain;
 
-import chess.dto.SquareDto;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
@@ -8,11 +7,9 @@ import chess.domain.piece.Position;
 import chess.domain.piece.type.Empty;
 import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class ChessBoard {
 
@@ -39,6 +36,7 @@ public class ChessBoard {
         throw new IllegalArgumentException("[ERROR] 이동할 수 없는 위치입니다.");
     }
 
+
     public Piece findPieceBy(final Position input) {
         if (isPieceExist(input)) {
             return pieces.get(input);
@@ -63,6 +61,14 @@ public class ChessBoard {
         scores.put(Color.WHITE, calculateScore(Color.WHITE));
         scores.put(Color.BLACK, calculateScore(Color.BLACK));
         return scores;
+    }
+
+    private double calculateScore(final Color color) {
+        return pieces.entrySet().stream()
+                .filter(positionPiece -> positionPiece.getValue().isMyColor(color))
+                .mapToDouble(positionPiece -> positionPiece.getValue()
+                        .getScore(hasSameFilePawn(positionPiece.getKey(), positionPiece.getValue())))
+                .sum();
     }
 
     public List<Color> getWinners() {
@@ -91,13 +97,41 @@ public class ChessBoard {
         return !pieces.get(input).isClass(Empty.class);
     }
 
-    private double calculateScore(final Color color) {
-        return pieces.entrySet().stream()
-                .filter(positionPiece -> positionPiece.getValue().isMyColor(color))
-                .mapToDouble(positionPiece -> positionPiece.getValue()
-                        .getScore(hasSameFilePawn(positionPiece.getKey(), positionPiece.getValue())))
-                .sum();
-    }
+//    private double calculateScore(final Color color) {
+//        double score = pieces.values().stream()
+//                .filter(piece -> piece.isMyColor(color) && !piece.isType(PieceType.PAWN))
+//                .mapToDouble(Piece::getScore)
+//                .sum();
+//
+//        double pawnsScore = calculatePawnsScore(color);
+//        return score + pawnsScore;
+//    }
+//
+//    private double calculatePawnsScore(final Color color) {
+//        return pieces.entrySet().stream()
+//                .filter(positionPiece -> positionPiece.getValue().isMyColor(color))
+//                .filter(positionPiece -> positionPiece.getValue().isType(PieceType.PAWN))
+//                .filter(positionPiece -> positionPiece.getKey().isSameFile(positionPiece.getKey()))
+//                .mapToDouble(positionPiece -> positionPiece.getValue().getPanwnScore(hasSameFilePawn(positionPiece)))
+//                .sum();
+//    }
+
+//    private double calculateScore(final Color color) {
+//        double score = pieces.entrySet().stream()
+//                .filter(positionPiece -> positionPiece.getValue().isMyColor(color))
+//                .mapToDouble(positionPiece -> positionPiece.getValue().getScore(hasSameFilePawn(positionPiece.getKey(), positionPiece.getValue())))
+//                .sum();
+//
+//        double pawnScore = calculatePawnScore(color);
+//        return score + pawnScore;
+//    }
+//
+//    private double calculatePawnScore(final Color color) {
+//        pieces.values().stream()
+//                .filter(piece -> piece.isType(PieceType.PAWN))
+//                .mapToDouble(piece -> piece.getScore(hasSameFilePawn(piece)))
+//                .sum()
+//    }
 
     private boolean hasSameFilePawn(final Position position, final Piece piece) {
         long count = pieces.entrySet().stream()
@@ -106,6 +140,7 @@ public class ChessBoard {
                         && positionPiece.getValue().isMyColor(piece))
                 .count();
         return count > 1;
+
     }
 
     public Map<Position, Piece> getPieces() {

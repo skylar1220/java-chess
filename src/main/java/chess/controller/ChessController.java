@@ -3,7 +3,7 @@ package chess.controller;
 import chess.dao.ChessGameDao;
 import chess.domain.ChessGame;
 import chess.domain.Command;
-import chess.dto.CommandDto;
+import chess.dto.CommandPosition;
 import chess.view.InputView;
 import chess.view.OutputView;
 
@@ -21,40 +21,38 @@ public class ChessController {
 
     public void runChess() {
         outputView.printStart();
+        CommandPosition commandPosition = CommandPosition.from(inputView.readCommand());
 
-        CommandDto commandDto = CommandDto.fromStart(inputView.readCommand());
-        Command command = commandDto.command();
-
-        if (command == Command.START) {
+        if (commandPosition.isCommand(Command.START)) {
             chessGameDao.deleteGame();
             final ChessGame chessGame = new ChessGame();
             chessGameDao.addGame(chessGame);
-            outputView.printChessBoard(chessGame.getChessBoard());
-            playWithCommand(chessGame, command);
-            return;
-        }
-        if (command == Command.CONTINUE) {
-            final ChessGame chessGame = new ChessGame(chessGameDao.findGame());
-            outputView.printChessBoard(chessGame.getChessBoard());
-            playWithCommand(chessGame, command);
-            return;
-        }
-        if (command == Command.END) {
-            return;
-        }
 
+            outputView.printChessBoard(chessGame.getChessBoard());
+            playGame(chessGame, commandPosition);
+            return;
+        }
+        if (commandPosition.isCommand(Command.CONTINUE)) {
+            final ChessGame chessGame = new ChessGame(chessGameDao.findGame());
+
+            outputView.printChessBoard(chessGame.getChessBoard());
+            playGame(chessGame, commandPosition);
+            return;
+        }
+        if (commandPosition.isCommand(Command.END)) {
+            return;
+        }
         throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력입니다.");
     }
 
-    private void playWithCommand(final ChessGame chessGame, Command command) {
-        while (command != Command.END && !chessGame.doesKingDead()) {
-            final CommandDto commandDto = CommandDto.from(inputView.readCommand());
-            command = commandDto.command();
+    private void playGame(final ChessGame chessGame, CommandPosition commandPosition) {
+        while (!commandPosition.isCommand(Command.END) && !chessGame.doesKingDead()) {
+            commandPosition = CommandPosition.from(inputView.readCommand());
 
-            if (command == Command.MOVE) {
-                playTurn(chessGame, commandDto);
+            if (commandPosition.isCommand(Command.MOVE)) {
+                playTurn(chessGame, commandPosition);
             }
-            if (command == Command.STATUS) {
+            if (commandPosition.isCommand(Command.STATUS)) {
                 outputView.printScore(chessGame.getScore());
                 outputView.printWinnner(chessGame.getWinners());
             }
@@ -66,8 +64,8 @@ public class ChessController {
         chessGameDao.saveGame(chessGame);
     }
 
-    private void playTurn(final ChessGame chessGame, final CommandDto commandDto) {
-        chessGame.play(commandDto.source(), commandDto.target());
+    private void playTurn(final ChessGame chessGame, final CommandPosition commandPosition) {
+        chessGame.play(commandPosition.getSource(), commandPosition.getTarget());
         outputView.printChessBoard(chessGame.getChessBoard());
     }
 }

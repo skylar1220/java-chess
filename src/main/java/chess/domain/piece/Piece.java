@@ -17,8 +17,6 @@ public abstract class Piece {
 
     public abstract double getScore();
 
-    public abstract double getPawnScore(final boolean hasSameFilePawn);
-
     public abstract PieceType getPieceType();
 
     public abstract boolean isType(PieceType pieceType);
@@ -28,30 +26,26 @@ public abstract class Piece {
     protected abstract Set<Position> getPositionsByDirection(final Direction direction, Position sourcePosition,
                                                              final Map<Position, Piece> pieces);
 
-    protected boolean isObstacleFree(final Map<Position, Piece> pieces, final Direction direction,
-                                     final Position sourcePostition) {
-        return isNextEnemy(pieces, direction, sourcePostition) || isNextEmpty(pieces, direction, sourcePostition);
-    }
-
-
     public Set<Position> getPositions(final Position sourcePosition, final Map<Position, Piece> pieces) {
         return directions().stream()
                 .flatMap(direction -> getPositionsByDirection(direction, sourcePosition, pieces).stream())
                 .collect(Collectors.toSet());
     }
 
+    public double getPawnScore(final boolean hasSameFilePawn) {
+        return 0;
+    }
+
     public double getScore(final boolean hasSameFilePawn) {
         if (isType(PieceType.PAWN)) {
-            return getPanwnScore(hasSameFilePawn);
+            return getPawnScore(hasSameFilePawn);
         }
         return getScore();
     }
 
-    public double getPanwnScore(final boolean hasSameFilePawn) {
-        if (hasSameFilePawn) {
-            return 0.5;
-        }
-        return getScore();
+    protected boolean isObstacleFree(final Map<Position, Piece> pieces, final Direction direction,
+                                     final Position sourcePostition) {
+        return isNextEnemy(pieces, direction, sourcePostition) || isNextEmpty(pieces, direction, sourcePostition);
     }
 
     public boolean isExist() {

@@ -16,7 +16,8 @@ public class OutputView {
                 + "> 새로운 게임 시작 : " + Command.START.getMessage() + System.lineSeparator()
                 + "> 저장된 게임 시작 : " + Command.CONTINUE.getMessage() + System.lineSeparator()
                 + "> 게임 종료 : " + Command.END.getMessage() + System.lineSeparator()
-                + "> 게임 이동 :  " + Command.MOVE.getMessage() + " source위치 target위치 - 예. " + Command.MOVE + " b2 b3");
+                + "> 게임 이동 :  " + Command.MOVE.getMessage() + " source위치 target위치 - 예. " + Command.MOVE + " b2 b3"
+                + "> 우세 진영 :  " + Command.STATUS.getMessage());
     }
 
     public void printChessBoard(final Map<Position, Piece> pieces) {

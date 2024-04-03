@@ -22,19 +22,17 @@ public class BlackPawn extends Pawn {
     public Set<Position> getPositions(final Position sourcePosition, final Map<Position, Piece> pieces) {
         Set<Position> positions = new HashSet<>();
 
-        if (color == Color.BLACK) {
-            if (sourcePosition.canMove(RIGHT_DOWN) && isNextEnemy(pieces, RIGHT_DOWN, sourcePosition)) {
-                positions.add(sourcePosition.move(RIGHT_DOWN));
-            }
-            if (sourcePosition.canMove(LEFT_DOWN) && isNextEnemy(pieces, LEFT_DOWN, sourcePosition)) {
-                positions.add(sourcePosition.move(LEFT_DOWN));
-            }
-            if (sourcePosition.canMove(DOWN_DOWN) && sourcePosition.isSameRank(Rank.SEVEN)) {
-                positions.add(sourcePosition.move(DOWN_DOWN));
-            }
-            if (sourcePosition.canMove(DOWN)) {
-                positions.add(sourcePosition.move(DOWN));
-            }
+        if (sourcePosition.canMove(RIGHT_DOWN) && isNextEnemy(pieces, RIGHT_DOWN, sourcePosition)) {
+            positions.add(sourcePosition.move(RIGHT_DOWN));
+        }
+        if (sourcePosition.canMove(LEFT_DOWN) && isNextEnemy(pieces, LEFT_DOWN, sourcePosition)) {
+            positions.add(sourcePosition.move(LEFT_DOWN));
+        }
+        if (sourcePosition.canMove(DOWN_DOWN) && sourcePosition.isSameRank(Rank.SEVEN)) {
+            positions.add(sourcePosition.move(DOWN_DOWN));
+        }
+        if (sourcePosition.canMove(DOWN)) {
+            positions.add(sourcePosition.move(DOWN));
         }
         return positions;
     }

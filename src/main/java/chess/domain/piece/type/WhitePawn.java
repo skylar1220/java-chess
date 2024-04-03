@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class WhitePawn extends Pawn{
+public class WhitePawn extends Pawn {
     public WhitePawn() {
         super(Color.WHITE);
     }
@@ -23,21 +23,18 @@ public class WhitePawn extends Pawn{
     public Set<Position> getPositions(final Position sourcePosition, final Map<Position, Piece> pieces) {
         Set<Position> positions = new HashSet<>();
 
-        if (color == Color.WHITE) {
-            if (sourcePosition.canMove(RIGHT_UP) && isNextEnemy(pieces, RIGHT_UP, sourcePosition)) {
-                positions.add(sourcePosition.move(RIGHT_UP));
-            }
-            if (sourcePosition.canMove(LEFT_UP) && isNextEnemy(pieces, LEFT_UP, sourcePosition)) {
-                positions.add(sourcePosition.move(LEFT_UP));
-            }
-            if (sourcePosition.canMove(UP_UP) && sourcePosition.isSameRank(Rank.TWO)) {
-                positions.add(sourcePosition.move(UP_UP));
-            }
-            if (sourcePosition.canMove(UP)) {
-                positions.add(sourcePosition.move(Direction.UP));
-            }
+        if (sourcePosition.canMove(RIGHT_UP) && isNextEnemy(pieces, RIGHT_UP, sourcePosition)) {
+            positions.add(sourcePosition.move(RIGHT_UP));
         }
-
+        if (sourcePosition.canMove(LEFT_UP) && isNextEnemy(pieces, LEFT_UP, sourcePosition)) {
+            positions.add(sourcePosition.move(LEFT_UP));
+        }
+        if (sourcePosition.canMove(UP_UP) && sourcePosition.isSameRank(Rank.TWO)) {
+            positions.add(sourcePosition.move(UP_UP));
+        }
+        if (sourcePosition.canMove(UP)) {
+            positions.add(sourcePosition.move(Direction.UP));
+        }
         return positions;
     }
 }

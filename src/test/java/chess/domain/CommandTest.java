@@ -2,12 +2,11 @@ package chess.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import chess.dto.CommandDto;
+import chess.dto.CommandPosition;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -17,7 +16,7 @@ class CommandTest {
     @ParameterizedTest
     @ValueSource(strings = {"", " ", "  "})
     void BlankInputThrowException(final String value) {
-        Assertions.assertThatThrownBy(() -> CommandDto.from(value))
+        Assertions.assertThatThrownBy(() -> CommandPosition.from(value))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -25,7 +24,7 @@ class CommandTest {
     @ParameterizedTest
     @NullSource
     void nullInputThrowException(final String value) {
-        Assertions.assertThatThrownBy(() -> CommandDto.from(value))
+        Assertions.assertThatThrownBy(() -> CommandPosition.from(value))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -33,34 +32,35 @@ class CommandTest {
     @ParameterizedTest
     @ValueSource(strings = {"st", "START", "go"})
     void test(final String value) {
-        Assertions.assertThatThrownBy(() -> CommandDto.from(value))
+        Assertions.assertThatThrownBy(() -> CommandPosition.from(value))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("올바른 입력에 대해 명령어를 생성한다.")
     @Test
-    void create() {
+    void createSTART() {
         // given
-        CommandDto commandDto = CommandDto.fromStart("start");
+        CommandPosition commandPosition = CommandPosition.from("start");
 
-        // when
-        Command command = commandDto.command();
-
-        // then
-        assertThat(command).isEqualTo(Command.START);
+        // when && then
+        assertThat(commandPosition).isEqualTo(new CommandPosition(Command.START, "", ""));
     }
-
     @DisplayName("올바른 입력에 대해 명령어를 생성한다.")
-    @CsvSource(value = {"move a2 a4, MOVE", "end, END"})
-    @ParameterizedTest
-    void create(final String value, final Command expected) {
+    @Test
+    void createEND() {
         // given
-        CommandDto commandDto = CommandDto.from(value);
+        CommandPosition commandPosition = CommandPosition.from("end");
 
-        // when
-        Command command = commandDto.command();
+        // when && then
+        assertThat(commandPosition).isEqualTo(new CommandPosition(Command.END, "", ""));
+    }
+    @DisplayName("올바른 입력에 대해 명령어를 생성한다.")
+    @Test
+    void createMOVE() {
+        // given
+        CommandPosition commandPosition = CommandPosition.from("move a2 a4");
 
-        // then
-        assertThat(command).isEqualTo(expected);
+        // when && then
+        assertThat(commandPosition).isEqualTo(new CommandPosition(Command.MOVE, "a2", "a4"));
     }
 }
