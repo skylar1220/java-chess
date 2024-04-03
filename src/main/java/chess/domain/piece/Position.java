@@ -21,9 +21,29 @@ public class Position {
     }
 
     public static Position from(final String input) {
+        validatePosition(input);
         String file = input.substring(FILE_INDEX, RANK_INDEX);
         String rank = input.substring(RANK_INDEX);
         return findPosition(File.fromSymbol(file), Rank.fromInput(rank));
+    }
+
+    private static void validatePosition(final String input) {
+        validateLength(input);
+        validateRankNumeric(input.substring(RANK_INDEX));
+    }
+
+    private static void validateRankNumeric(final String input) {
+        try {
+            Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력입니다.");
+        }
+    }
+
+    private static void validateLength(final String input) {
+        if (input.length() != 2) {
+            throw new IllegalArgumentException("[ERROR] 유효한 위치 입력이 아닙니다.");
+        }
     }
 
     private static Set<Position> cachePositions() {

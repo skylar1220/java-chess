@@ -10,7 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class CommandTest {
+class CommandPositionTest {
 
     @DisplayName("공백을 입력하면 예외를 발생시킨다.")
     @ParameterizedTest

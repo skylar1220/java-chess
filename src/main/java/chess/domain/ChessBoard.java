@@ -36,7 +36,6 @@ public class ChessBoard {
         throw new IllegalArgumentException("[ERROR] 이동할 수 없는 위치입니다.");
     }
 
-
     public Piece findPieceBy(final Position input) {
         if (isPieceExist(input)) {
             return pieces.get(input);

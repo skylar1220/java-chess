@@ -7,6 +7,8 @@ import java.util.Objects;
 
 public class CommandPosition {
 
+    public static final int MOVE_COMMAND_PART_COUNT = 3;
+
     private final Command command;
     private final String source;
     private final String target;
@@ -28,7 +30,7 @@ public class CommandPosition {
 
         if (command == Command.MOVE) {
             List<String> splits = Arrays.asList(input.split(" "));
-            validateMoveCommand(splits);
+            validateMoveCommandPartCount(splits);
             String source = splits.get(1);
             String target = splits.get(2);
             return new CommandPosition(Command.MOVE, source, target);
@@ -41,34 +43,8 @@ public class CommandPosition {
         return command == other;
     }
 
-
-    private static void validateMoveCommand(final List<String> splittedInput) {
-        validateMoveCommandPartCount(splittedInput);
-        validateMoveCommandMessage(splittedInput);
-        validateRankNumeric(splittedInput);
-    }
-
     private static void validateMoveCommandPartCount(final List<String> splittedInput) {
-        if (splittedInput.size() != 3) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력입니다.");
-        }
-    }
-
-    private static void validateMoveCommandMessage(final List<String> splittedInput) {
-        if (!splittedInput.get(0).equals(Command.MOVE.getMessage())) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력입니다.");
-        }
-    }
-
-    private static void validateRankNumeric(final List<String> splittedInput) {
-        splittedInput.subList(1, 3)
-                .forEach(position -> validateNumeric(position.substring(1)));
-    }
-
-    private static void validateNumeric(final String input) {
-        try {
-            Integer.parseInt(input);
-        } catch (NumberFormatException e) {
+        if (splittedInput.size() != MOVE_COMMAND_PART_COUNT) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력입니다.");
         }
     }
