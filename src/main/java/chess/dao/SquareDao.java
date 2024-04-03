@@ -31,7 +31,7 @@ public class SquareDao {
                 squareEntities.add(new SquareDto(position, pieceType, color));
             }
             return squareEntities;
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -50,7 +50,7 @@ public class SquareDao {
 
                 statement.executeUpdate();
             }
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -61,7 +61,7 @@ public class SquareDao {
         try (final Connection connection = ChessDbConnector.getConnection();
              final PreparedStatement statement = connection.prepareStatement(query)) {
             statement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
     }

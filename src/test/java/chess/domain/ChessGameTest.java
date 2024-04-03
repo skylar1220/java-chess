@@ -1,14 +1,8 @@
 package chess.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.assertj.core.api.Assertions.entry;
 
-import chess.Fixtures;
-import chess.domain.piece.Color;
-import java.util.HashMap;
-import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -72,32 +66,5 @@ public class ChessGameTest {
 
         // then
         assertThatThrownBy(() -> chessGame.play("a6", "a5")).isInstanceOf(IllegalArgumentException.class);
-    }
-
-    /*
-    RNB.KBNR
-    ...P.PPP
-    .P......
-    P.P.q.b. -> 3. q가 N을 잡는다. = black -2.5
-    .rpQP.p. -> 2. Q가 p를 잡는다. = white -0.5, 0.5
-    p.n.kp.. -> 1. p가 P를 잡는다. = black -1
-    .p.pp..p
-    ..b...nr
-     */
-    @DisplayName("남은 말들의 점수를 구한다.")
-    @Test
-    void getScore() {
-        // given
-        final ChessBoard chessBoard = new ChessBoard(new HashMap<>(Fixtures.GAMING_PIECES));
-        final ChessGame chessGame = new ChessGame(chessBoard);
-
-        // when
-        chessGame.play("f3", "e4");
-        chessGame.play("d4", "e4");
-        chessGame.play("e5", "b8");
-        Map<Color, Double> scores = chessBoard.getScores();
-
-        // then
-        assertThat(scores).contains(entry(Color.WHITE, 37.0), entry(Color.BLACK, 34.5));
     }
 }

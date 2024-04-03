@@ -3,12 +3,16 @@ package chess.domain;
 import static chess.Fixtures.GAMING_PIECES;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.entry;
 
+import chess.Fixtures;
+import chess.domain.piece.Color;
 import chess.domain.piece.File;
 import chess.domain.piece.Piece;
 import chess.domain.piece.Position;
 import chess.domain.piece.Rank;
 import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -197,29 +201,29 @@ class ChessBoardTest {
         assertThat(doesKingDead).isFalse();
     }
 
-//    /*
-//    RNB.KBNR
-//    ...P.PPP
-//    .P......
-//    P.P.q.b. -> 1. q가 P를 잡는다.
-//    .rpQP.p. -> 2. Q가 n을 잡는다.
-//    p.n.kp.. -> 3. p가 P를 잡는다.
-//    .p.pp..p
-//    ..b...nr
-//     */
-//    @DisplayName("잡힌 말들을 가져온다.")
-//    @Test
-//    void getScore() {
-//        // given
-//        final ChessBoard chessBoard = new ChessBoard(new HashMap<>(Fixtures.GAMING_PIECES));
-//
-//        // when
-//        chessBoard.move("e5", "c5");
-//        chessBoard.move("d4", "c3");
-//        chessBoard.move("f3", "e4");
-//        Map<Color, Double> scores = chessBoard.getScores();
-//
-//        // then
-//        assertThat(scores).contains(entry(Color.WHITE, 1.0), entry(Color.BLACK, 1.0));
-//    }
+    /*
+    RNB.KBNR
+    ...P.PPP
+    .P......
+    P.P.q.b. -> 3. q가 N을 잡는다. = black -2.5
+    .rpQP.p. -> 2. Q가 p를 잡는다. = white -0.5, 0.5
+    p.n.kp.. -> 1. p가 P를 잡는다. = black -1
+    .p.pp..p
+    ..b...nr
+     */
+    @DisplayName("잡힌 말들을 가져온다.")
+    @Test
+    void getScore() {
+        // given
+        final ChessBoard chessBoard = new ChessBoard(new HashMap<>(Fixtures.GAMING_PIECES));
+
+        // when
+        chessBoard.tryMove("f3", "e4");
+        chessBoard.tryMove("d4", "e4");
+        chessBoard.tryMove("e5", "b8");
+        Map<Color, Double> scores = chessBoard.getScores();
+
+        // then
+        assertThat(scores).contains(entry(Color.WHITE, 37.0), entry(Color.BLACK, 34.5));
+    }
 }
