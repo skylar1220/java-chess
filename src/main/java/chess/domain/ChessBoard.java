@@ -96,42 +96,6 @@ public class ChessBoard {
         return !pieces.get(input).isClass(Empty.class);
     }
 
-//    private double calculateScore(final Color color) {
-//        double score = pieces.values().stream()
-//                .filter(piece -> piece.isMyColor(color) && !piece.isType(PieceType.PAWN))
-//                .mapToDouble(Piece::getScore)
-//                .sum();
-//
-//        double pawnsScore = calculatePawnsScore(color);
-//        return score + pawnsScore;
-//    }
-//
-//    private double calculatePawnsScore(final Color color) {
-//        return pieces.entrySet().stream()
-//                .filter(positionPiece -> positionPiece.getValue().isMyColor(color))
-//                .filter(positionPiece -> positionPiece.getValue().isType(PieceType.PAWN))
-//                .filter(positionPiece -> positionPiece.getKey().isSameFile(positionPiece.getKey()))
-//                .mapToDouble(positionPiece -> positionPiece.getValue().getPanwnScore(hasSameFilePawn(positionPiece)))
-//                .sum();
-//    }
-
-//    private double calculateScore(final Color color) {
-//        double score = pieces.entrySet().stream()
-//                .filter(positionPiece -> positionPiece.getValue().isMyColor(color))
-//                .mapToDouble(positionPiece -> positionPiece.getValue().getScore(hasSameFilePawn(positionPiece.getKey(), positionPiece.getValue())))
-//                .sum();
-//
-//        double pawnScore = calculatePawnScore(color);
-//        return score + pawnScore;
-//    }
-//
-//    private double calculatePawnScore(final Color color) {
-//        pieces.values().stream()
-//                .filter(piece -> piece.isType(PieceType.PAWN))
-//                .mapToDouble(piece -> piece.getScore(hasSameFilePawn(piece)))
-//                .sum()
-//    }
-
     private boolean hasSameFilePawn(final Position position, final Piece piece) {
         long count = pieces.entrySet().stream()
                 .filter(positionPiece -> positionPiece.getKey().isSameFile(position)

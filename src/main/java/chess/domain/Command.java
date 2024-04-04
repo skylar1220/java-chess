@@ -4,16 +4,18 @@ import java.util.Arrays;
 
 public enum Command {
 
-    START("start"),
-    CONTINUE("continue"),
-    END("end"),
-    MOVE("move"),
-    STATUS("status");
+    START("start", 1),
+    CONTINUE("continue", 1),
+    END("end", 1),
+    MOVE("move", 3),
+    STATUS("status", 1);
 
     private final String message;
+    private final int argumentCount;
 
-    Command(final String message) {
+    Command(final String message, final int argumentCount) {
         this.message = message;
+        this.argumentCount = argumentCount;
     }
 
     public static Command from(final String input) {
@@ -26,6 +28,10 @@ public enum Command {
                 .filter(command -> command.message.equals(input))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 유효하지 않은 입력입니다."));
+    }
+
+    public boolean matchArgumentCount(final int other) {
+        return argumentCount == other;
     }
 
     private static void validateBlank(final String input) {

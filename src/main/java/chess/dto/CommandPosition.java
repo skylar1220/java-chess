@@ -31,6 +31,9 @@ public class CommandPosition {
         if (command == Command.MOVE) {
             List<String> splits = Arrays.asList(input.split(" "));
             validateMoveCommandPartCount(splits);
+            if (!command.matchArgumentCount(splits.size())){
+                throw new IllegalArgumentException("[ERROR] 유효하지 않은 입력입니다.");
+            }
             String source = splits.get(1);
             String target = splits.get(2);
             return new CommandPosition(Command.MOVE, source, target);
