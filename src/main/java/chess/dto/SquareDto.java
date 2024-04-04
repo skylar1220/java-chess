@@ -1,5 +1,6 @@
 package chess.dto;
 
+import chess.domain.PieceFactory;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
@@ -37,7 +38,8 @@ public record SquareDto(String position, PieceType pieceType, Color color) {
         return squareDtos.stream()
                 .collect(Collectors.toMap(
                         squareDto -> Position.from(squareDto.position()),
-                        squareDto -> convertToPiece(squareDto.pieceType(), squareDto.color()),
+                        squareDto -> PieceFactory.of(squareDto.pieceType(), squareDto.color()),
+//                        squareDto -> convertToPiece(squareDto.pieceType(), squareDto.color()),
                         (o1, o2) -> o1,
                         LinkedHashMap::new
                 ));
